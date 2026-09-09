@@ -1,0 +1,51 @@
+name: Verificar assets existentes
+on:
+  push:
+    branches: [upload-latest]
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar e comparar assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          HOST='https://biblioteca-livre-nul1lqvyg.vercel.app'
+          SHARE='YuqymRRSFYBNl4ZgRyPYUZDyWngVVMrb'
+          mkdir -p /tmp/assets
+          curl -fsSL -c /tmp/cookies "$HOST/?_vercel_share=$SHARE" -o /tmp/root.html
+          paths=(
+            'dist/assets/biblioteca-cenario.webp'
+            'dist/assets/biblioteca-sprites.webp'
+            'dist/assets/capas/1984.jpg'
+            'dist/assets/capas/21209.jpg'
+            'dist/assets/capas/21406.jpg'
+            'dist/assets/capas/22015.jpg'
+            'dist/assets/capas/23145.jpg'
+            'dist/assets/capas/23400.jpg'
+            'dist/assets/capas/23687.jpg'
+            'dist/assets/capas/25925.jpg'
+            'dist/assets/capas/26110.jpg'
+            'dist/assets/capas/26371.jpg'
+            'dist/assets/capas/26850.jpg'
+            'dist/assets/capas/27637.jpg'
+            'dist/assets/capas/3333.jpg'
+            'dist/assets/capas/55752.jpg'
+            'dist/assets/capas/67939.jpg'
+            'dist/assets/capas/bichinho.jpg'
+            'dist/assets/capas/capital.jpg'
+            'dist/assets/capas/principe.jpg'
+          )
+          for p in "${paths[@]}"; do
+            rel="${p#dist/}"
+            out="/tmp/assets/$(basename "$p")"
+            code=$(curl -sSL -b /tmp/cookies -w '%{http_code}' -o "$out" "$HOST/$rel")
+            if [ "$code" = '200' ]; then
+              echo "$(sha256sum "$out" | awk '{print $1}')  $p  size=$(stat -c%s "$out")"
+            else
+              echo "HTTP_$code  $p"
+            fi
+          done
