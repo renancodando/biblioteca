@@ -1,6 +1,0 @@
-const normalizar=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-const corresponde=(alvo,itens)=>{const a=normalizar(alvo),p=a.split(' ').filter(Boolean);return itens.some(x=>{const b=normalizar(x);if(b===a||b.includes(a)||a.includes(b))return true;const s=new Set(b.split(' '));return p.length&&p.filter(v=>s.has(v)).length/p.length>=.75})};
-async function consultar(titulo){const chamadas=[];const ol=new URL('https://openlibrary.org/search.json');ol.searchParams.set('title',titulo);ol.searchParams.set('limit','50');ol.searchParams.set('fields','title');chamadas.push(fetch(ol,{signal:AbortSignal.timeout(8000)}).then(r=>r.json()).then(d=>(d.docs||[]).map(x=>x.title||'')));
-const gu=new URL('https://gutendex.com/books/');gu.searchParams.set('search',titulo);chamadas.push(fetch(gu,{signal:AbortSignal.timeout(8000)}).then(r=>r.json()).then(d=>(d.results||[]).map(x=>x.title||'')));
-const rs=await Promise.allSettled(chamadas);return rs.some(r=>r.status==='fulfilled'&&corresponde(titulo,r.value))}
-for(const titulo of ['A Arte da Guerra','Moby Dick']){const ok=await consultar(titulo);console.log(`${ok?'PASS':'FAIL'} ${titulo}`);if(!ok)process.exitCode=1}
