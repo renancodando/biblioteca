@@ -1,0 +1,36 @@
+[
+  {
+    "titulo": "1984",
+    "capa": "/assets/capas/1984.jpg",
+    "consulta": "1984 George Orwell",
+    "tipo": "busca",
+    "fonteCapa": "https://openlibrary.org/isbn/9780451524935"
+  },
+  {
+    "titulo": "O Capital",
+    "capa": "/assets/capas/capital.jpg",
+    "consulta": "Marx",
+    "tipo": "busca",
+    "fonteCapa": "https://openlibrary.org/search?q=O+Capital+Karl+Marx"
+  },
+  {
+    "titulo": "Dom Casmurro",
+    "capa": "/assets/capas/55752.jpg",
+    "catalogoId": "gutendex:55752",
+    "tipo": "livro",
+    "fonteCapa": "https://www.gutenberg.org/ebooks/55752"
+  },
+  {
+    "titulo": "Todo Dia um Bichinho Some",
+    "capa": "/assets/capas/bichinho.jpg",
+    "tipo": "autor",
+    "fonteCapa": "https://www.bol.com/be/nl/p/todo-dia-um-bichinho-some/9300000274109519/"
+  },
+  {
+    "titulo": "O Pequeno Príncipe",
+    "capa": "/assets/capas/principe.jpg",
+    "consulta": "Le petit prince Saint Exupery",
+    "tipo": "busca",
+    "fonteCapa": "https://openlibrary.org/search?q=Le+petit+prince+Saint-Exupery"
+  }
+]

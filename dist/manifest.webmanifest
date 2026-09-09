@@ -1,0 +1,10 @@
+{
+  "name": "Biblioteca Livre",
+  "short_name": "Biblioteca Livre",
+  "description": "Conhecimento livre, obras gratuitas e domínio público em uma biblioteca digital viva.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090907",
+  "theme_color": "#090907",
+  "icons": []
+}
