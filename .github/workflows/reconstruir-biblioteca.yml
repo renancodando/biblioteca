@@ -1,0 +1,83 @@
+name: Reconstruir Biblioteca Livre
+
+on:
+  push:
+    branches:
+      - upload-latest
+
+permissions:
+  contents: write
+
+jobs:
+  reconstruir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconstruir código
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .upload/core-*.b64 | base64 -d > /tmp/core.tar.xz
+          tar -xJf /tmp/core.tar.xz -C .
+          mkdir -p dist/data/textos dist/assets/capas
+          python3 - <<'PY'
+          import json, pathlib, time, urllib.request
+
+          textos = [21209,21406,22015,23400,23687,26110,26371,26850,27637,3333,55752,67939]
+          capas = [21209,21406,22015,23145,23400,23687,25925,26110,26371,26850,27637,3333,55752,67939]
+          cab = {'User-Agent':'BibliotecaLivre/1.0 (+https://github.com/renancodando/biblioteca)'}
+
+          def baixar(url, destino, tentativas=4):
+              destino = pathlib.Path(destino)
+              for tentativa in range(tentativas):
+                  try:
+                      req = urllib.request.Request(url, headers=cab)
+                      with urllib.request.urlopen(req, timeout=30) as r:
+                          dados = r.read()
+                      if not dados:
+                          raise RuntimeError('resposta vazia')
+                      destino.write_bytes(dados)
+                      return
+                  except Exception:
+                      if tentativa == tentativas - 1:
+                          raise
+                      time.sleep(2 * (tentativa + 1))
+
+          for livro in textos:
+              baixar(f'https://www.gutenberg.org/ebooks/{livro}.txt.utf-8', f'dist/data/textos/{livro}.txt')
+          for livro in capas:
+              baixar(f'https://www.gutenberg.org/cache/epub/{livro}/pg{livro}.cover.medium.jpg', f'dist/assets/capas/{livro}.jpg')
+          baixar('https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg', 'dist/assets/capas/1984.jpg')
+          PY
+          rm -rf .upload
+          rm -f .github/workflows/reconstruir-biblioteca.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+      - name: Validar projeto
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f BibliotecaLivre.sln
+          test -f BibliotecaLivre.csproj
+          test -f vercel.json
+          test -f api/google-books.js
+          test -f dist/index.html
+          test -f dist/js/app.js
+          test -f dist/data/catalogo.json
+          test ! -e .env
+          test ! -d .vs
+          test ! -d bin
+          test ! -d obj
+          test ! -d node_modules
+          find api dist -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Salvar projeto reconstruído
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'renancodando'
+          git config user.email 'renancodando@gmail.com'
+          git add -A
+          git commit -m 'Reconstrói Biblioteca Livre atualizada'
+          git push origin HEAD:upload-latest
