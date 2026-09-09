@@ -1,0 +1,6 @@
+const normalizar=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+const espera=ms=>new Promise(r=>setTimeout(r,ms));
+async function json(url,tentativas=4){let erro;for(let i=0;i<tentativas;i++){try{const r=await fetch(url,{headers:{Accept:'application/json','User-Agent':'BibliotecaLivre-QA/1.0'},signal:AbortSignal.timeout(12000)});if(r.ok)return r.json();erro=new Error(`${r.status} ${r.statusText}`);if(![408,429,500,502,503,504].includes(r.status))throw erro}catch(e){erro=e}if(i<tentativas-1)await espera(700*(i+1))}throw erro}
+function bate(alvo,titulos){const a=normalizar(alvo);return titulos.some(t=>{const n=normalizar(t);return n===a||n.includes(a)||a.includes(n)})}
+async function google(titulo){for(const q of [`intitle:\"${titulo}\"`,titulo]){const u=new URL('https://www.googleapis.com/books/v1/volumes');u.searchParams.set('q',q);u.searchParams.set('maxResults','40');u.searchParams.set('printType','books');const d=await json(u);const ts=(d.items||[]).map(x=>x.volumeInfo?.title||'');console.log(titulo,'q=',q,'total=',d.totalItems,'amostra=',ts.slice(0,5));if(bate(titulo,ts))return true}return false}
+for(const t of ['Moby Dick','The Art of War']){const ok=await google(t);console.log(ok?'PASS':'FAIL',t);if(!ok)process.exitCode=1}
