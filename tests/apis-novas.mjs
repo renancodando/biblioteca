@@ -1,0 +1,6 @@
+const teste=async(nome,url,validar)=>{try{const r=await fetch(url,{headers:{'User-Agent':'BibliotecaLivre-QA/4.0'},signal:AbortSignal.timeout(12000)});const ct=r.headers.get('content-type')||'';const corpo=await r.text();if(!r.ok)throw new Error(`${r.status}`);if(!validar(corpo,ct))throw new Error('resposta inesperada');console.log(`PASS ${nome}`)}catch(e){console.error(`FAIL ${nome}: ${e.message}`);process.exitCode=1}};
+await teste('Internet Archive','https://archive.org/advancedsearch.php?q=title%3A%28%22Moby%20Dick%22%29%20AND%20mediatype%3Atexts&fl%5B%5D=identifier&fl%5B%5D=title&rows=5&page=1&output=json',(b)=>{try{return JSON.parse(b).response.docs.length>0}catch{return false}});
+await teste('Library of Congress','https://www.loc.gov/books/?q=Moby%20Dick&fo=json&c=5&sp=1&at=results,pagination',(b)=>{try{return JSON.parse(b).results.length>0}catch{return false}});
+await teste('Gallica','https://gallica.bnf.fr/SRU?version=1.2&operation=searchRetrieve&maximumRecords=5&startRecord=1&suggest=0&query=%28gallica%20all%20%22Moby%20Dick%22%29%20and%20%28dc.type%20all%20%22monographie%22%29',(b)=>/numberOfRecords/.test(b));
+await teste('WS Export','https://ws-export.wmcloud.org/?lang=en&format=pdf-a5&page=Moby_Dick',(b,ct)=>ct.includes('pdf')||ct.includes('html')||b.length>1000);
+if(process.exitCode)process.exit(1);
