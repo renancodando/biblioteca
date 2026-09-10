@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b100f"><meta name="description" content="Conhecimento é direito. Explore livros gratuitos, leia e guarde suas descobertas na Biblioteca Livre.">
+<title>Biblioteca Livre — Conhecimento é direito</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/css/site.css"><link rel="preload" as="image" href="/assets/biblioteca-cenario.webp">
+</head>
+<body>
+<a class="pular-conteudo" href="#inicio">Pular para as ações</a>
+<main class="experiencia" id="inicio">
+  <div class="cenario" id="cenario" aria-hidden="true"><img class="arte-base" src="/assets/biblioteca-cenario.webp" alt="" fetchpriority="high"><div class="agua-viva"><canvas id="oceano"></canvas><div id="folhas-vivas"></div></div><div class="luz-agua"></div><div class="vinheta"></div></div>
+  <aside class="lateral" id="lateral">
+    <a class="marca" href="#inicio" aria-label="Biblioteca Livre, início">BIBLIOTECA<br>LIVRE<span>Conhecimento não deveria<br>ser privilégio, mas um direito.</span></a>
+    <div class="ornamento" aria-hidden="true">✦</div>
+    <nav class="navegacao" aria-label="Navegação principal">
+      <button class="ativo" data-acao="inicio"><span>01</span>Início</button>
+      <button data-acao="explorar"><span>02</span>Explorar</button>
+      <button data-painel="destaques"><span>03</span>Destaques</button>
+      <button data-acao="dominio"><span>04</span>Domínio público</button>
+      <button data-painel="colecoes"><span>05</span>Coleções</button>
+      <button data-painel="acervo"><span>06</span>Meu acervo <small id="total-acervo">0</small></button>
+      <button data-painel="leitor"><span>07</span>Continuar lendo</button>
+      <button data-painel="manifesto"><span>08</span>Manifesto</button>
+      <button data-painel="sobre"><span>09</span>Sobre & fontes</button>
+    </nav>
+    <div class="rodape-lateral"><span class="linha-dourada"></span><p>Livros incomodam<br>sistemas que dependem<br>da alienação.</p><button class="link-simples" data-painel="manifesto">Leia o manifesto <span>↗</span></button><small>ABERTA A TODAS AS MENTES</small></div>
+  </aside>
+  <section class="busca-rapida" aria-label="Pesquisar em todo o acervo">
+    <p class="rotulo">ACERVO SEM FILTROS</p>
+    <h1>Procure qualquer livro.</h1>
+    <p class="busca-rapida-texto">Título, autor, assunto, ISBN ou uma frase. Se alguma fonte conectada encontrar, a Biblioteca Livre mostra.</p>
+    <form id="busca-inicio" role="search" class="form-busca-inicio">
+      <label class="sr-only" for="termo-inicio">Pesquisar livro</label>
+      <div class="campo-busca-inicio"><input id="termo-inicio" type="search" maxlength="200" placeholder="Ex.: Moby Dick, Sun Tzu…" autocomplete="off"><button type="submit" aria-label="Pesquisar">↗</button></div>
+    </form>
+    <div class="fontes-inicio"><span>16 fontes abertas</span><span>livros</span><span>estudos</span><span>apostilas</span><span>artigos científicos</span></div>
+  </section>
+  <header class="cabecalho"><div class="marca-mobile-grupo"><a class="marca-mobile" href="#inicio">BIBLIOTECA <b>LIVRE</b></a><button class="botao-icone menu-mobile" data-painel="menu" aria-label="Abrir navegação">☰</button></div><div class="acoes-cabecalho"><button class="botao-perfil" data-painel="perfil"><span class="sinal-perfil" aria-hidden="true">◯</span><span id="nome-perfil-topo">Meu perfil</span></button><button class="botao-icone" data-painel="preferencias" aria-label="Som e movimento do cenário">☷</button></div></header>
+  <div class="controles-cena"><button id="botao-som" aria-label="Ativar som do oceano" aria-pressed="false">◌</button><button id="botao-movimento" aria-label="Pausar animações" aria-pressed="false">Ⅱ</button></div>
+</main>
+<dialog id="busca" class="busca-modal" aria-labelledby="titulo-busca">
+  <div class="cabecalho-modal"><a href="#inicio" class="marca-pequena" data-fechar="busca">BIBLIOTECA LIVRE</a><button class="fechar" data-fechar="busca" aria-label="Fechar busca">×</button></div>
+  <div class="conteudo-busca"><p class="rotulo">CONHECIMENTO PARA TODAS AS PESSOAS</p><h2 id="titulo-busca">Encontre sua próxima <em>ideia.</em></h2>
+    <form id="form-busca" role="search"><label class="sr-only" for="campo-busca">Pesquisar em todas as fontes</label><div class="linha-busca"><input type="search" id="campo-busca" placeholder="Pesquise qualquer livro, autor, assunto, ISBN ou termo…" maxlength="200" autocomplete="off"><button type="submit" class="primario">Pesquisar <span>↗</span></button></div></form>
+    <div class="resultado-cabecalho"><p id="status-busca" role="status" aria-live="polite"></p></div>
+    <div id="fontes-status" class="fontes-status" aria-label="Resultados por fonte"></div>
+    <section id="carregando-busca" class="carregamento-busca" hidden aria-hidden="true">
+      <div class="carregamento-visual" aria-hidden="true">
+        <span class="orbita orbita-a"></span><span class="orbita orbita-b"></span><span class="orbita orbita-c"></span>
+        <div class="livro-pulso"><i></i><i></i><i></i><b>∞</b></div>
+        <span class="folha-carga folha-carga-a"></span><span class="folha-carga folha-carga-b"></span><span class="folha-carga folha-carga-c"></span>
+      </div>
+      <div class="carregamento-texto"><span class="rotulo">PESQUISA EM ACERVOS ABERTOS</span><strong id="carregando-titulo">Percorrendo bibliotecas, universidades e arquivos…</strong><p id="carregando-fonte">Abrindo as primeiras estantes.</p><div class="progresso-fontes"><i id="progresso-fontes-barra"></i></div><small id="progresso-fontes-texto">0 de 16 fontes consultadas</small></div>
+    </section>
+    <div id="resultados" class="resultados"></div><button id="carregar-mais" class="secundario" hidden>Carregar mais obras</button><p class="nota-fontes">A busca consulta livros, acervos históricos, livros acadêmicos, artigos científicos e materiais educacionais abertos. Não há filtro de idioma ou assunto. Continue rolando para carregar novas páginas enquanto houver resultados.</p>
+  </div>
+</dialog>
+<dialog id="painel" class="painel" aria-label="Informações da biblioteca"><button class="fechar" data-fechar="painel" aria-label="Fechar painel">×</button><div id="conteudo-painel"></div></dialog>
+<dialog id="leitor" class="leitor" aria-labelledby="titulo-leitor"><header><div><span class="rotulo">LEITURA LIVRE</span><h2 id="titulo-leitor">Leitura</h2></div><div class="acoes-leitor"><button id="fonte-menor" aria-label="Diminuir fonte">A−</button><button id="fonte-maior" aria-label="Aumentar fonte">A+</button><button id="tema-leitor" aria-label="Alternar tema do leitor">◐</button><button id="imprimir" aria-label="Imprimir ou salvar em PDF">PDF</button><button class="fechar" data-fechar="leitor" aria-label="Fechar leitor">×</button></div></header><div id="leitor-rolagem" class="leitor-rolagem"><div id="corpo-leitor" class="corpo-leitor"></div></div><footer><span id="pagina-leitura">Seu progresso fica neste dispositivo</span><progress id="progresso-leitura" max="100" value="0" aria-label="Progresso da leitura"></progress><span id="porcentagem-leitura">0%</span></footer></dialog>
+<div id="avisos" class="avisos" role="status" aria-live="polite"></div>
+<noscript><p class="sem-js">Ative o JavaScript para pesquisar e ler. Você também pode visitar o <a href="https://www.gutenberg.org/browse/languages/pt">acervo gratuito em português do Project Gutenberg</a>.</p></noscript>
+<script type="module" src="/js/app.js"></script>
+</body></html>

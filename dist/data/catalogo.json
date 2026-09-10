@@ -1,0 +1,595 @@
+[
+  {
+    "id": "gutendex:55752",
+    "titulo": "Dom Casmurro",
+    "autores": [
+      "Machado de Assis"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/55752.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/55752.html.images",
+    "texto": "/data/textos/55752.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/55752",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/55752.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/55752.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao"
+    ],
+    "palavras": [
+      "Adultery -- Fiction",
+      "Authorship -- Fiction",
+      "Catholic Church -- Fiction",
+      "Reminiscing in old age -- Fiction"
+    ],
+    "descricao": "Bentinho revisita sua juventude e seu casamento com Capitu. Memória, ciúme e a voz de um narrador que pede ao leitor uma confiança impossível de garantir."
+  },
+  {
+    "id": "curadoria:dom-casmurro-pdf",
+    "titulo": "Dom Casmurro — edição em PDF",
+    "autores": [
+      "Machado de Assis"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/55752.jpg",
+    "ler": "https://vargem.sp.gov.br/public/admin/globalarq/uploads/files/Dom%20Casmurro%20-%20Machado%20de%20Assis.pdf",
+    "texto": null,
+    "origem": "https://vargem.sp.gov.br/public/admin/globalarq/uploads/files/Dom%20Casmurro%20-%20Machado%20de%20Assis.pdf",
+    "fonte": "curadoria",
+    "provedor": "Acervo público de Vargem",
+    "acessoLivre": true,
+    "dominioPublico": false,
+    "curadoria": true,
+    "licenca": "Edição da série Prazer de Ler disponibilizada gratuitamente no acervo online da Prefeitura de Vargem.",
+    "formatos": [
+      {
+        "tipo": "PDF",
+        "url": "https://vargem.sp.gov.br/public/admin/globalarq/uploads/files/Dom%20Casmurro%20-%20Machado%20de%20Assis.pdf"
+      }
+    ],
+    "categorias": [
+      "ficcao"
+    ],
+    "palavras": [
+      "romance",
+      "literatura brasileira",
+      "Bentinho",
+      "Capitu"
+    ],
+    "descricao": "Uma edição gratuita em PDF, para ler no navegador ou baixar pela fonte.",
+    "textoLocal": false
+  },
+  {
+    "id": "gutendex:23145",
+    "titulo": "A Illustre Casa de Ramires",
+    "autores": [
+      "Queirós, Eça de"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/23145.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/23145.html.images",
+    "texto": "https://www.gutenberg.org/ebooks/23145.txt.utf-8",
+    "textoLocal": false,
+    "origem": "https://www.gutenberg.org/ebooks/23145",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/23145.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/23145.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao"
+    ],
+    "palavras": [],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:25925",
+    "titulo": "Poesias",
+    "autores": [
+      "Herculano, Alexandre"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/25925.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/25925.html.images",
+    "texto": "https://www.gutenberg.org/ebooks/25925.txt.utf-8",
+    "textoLocal": false,
+    "origem": "https://www.gutenberg.org/ebooks/25925",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/25925.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/25925.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "poesia"
+    ],
+    "palavras": [
+      "Portuguese poetry"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:22015",
+    "titulo": "As Minas de Salomão",
+    "autores": [
+      "Haggard, H. Rider (Henry Rider)"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/22015.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/22015.html.images",
+    "texto": "/data/textos/22015.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/22015",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/22015.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/22015.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao",
+      "natureza"
+    ],
+    "palavras": [
+      "Adventure stories",
+      "Africa -- Fiction",
+      "Diamond mines and mining -- Fiction",
+      "Hunting guides -- Fiction",
+      "Missing persons -- Fiction",
+      "Quatermain, Allan (Fictitious character) -- Fiction",
+      "Treasure troves -- Fiction"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:26110",
+    "titulo": "O Olho de Vidro",
+    "autores": [
+      "Castelo Branco, Camilo"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/26110.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/26110.html.images",
+    "texto": "/data/textos/26110.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/26110",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/26110.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/26110.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao"
+    ],
+    "palavras": [
+      "Abreu, Brás Luís de, 1692-1756 -- Fiction"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:23400",
+    "titulo": "A Lenda da Meia-Noite",
+    "autores": [
+      "Chagas, Manuel Pinheiro"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/23400.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/23400.html.images",
+    "texto": "/data/textos/23400.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/23400",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/23400.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/23400.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao"
+    ],
+    "palavras": [
+      "Portuguese fiction -- 19th century"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:21209",
+    "titulo": "Pátria",
+    "autores": [
+      "Junqueiro, Abílio Manuel Guerra"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/21209.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/21209.html.images",
+    "texto": "/data/textos/21209.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/21209",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/21209.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/21209.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "poesia",
+      "politica"
+    ],
+    "palavras": [
+      "Portuguese drama"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:3333",
+    "titulo": "Os Lusíadas",
+    "autores": [
+      "Camões, Luís de"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/3333.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/3333.html.images",
+    "texto": "/data/textos/3333.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/3333",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/3333.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/3333.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "poesia"
+    ],
+    "palavras": [
+      "Epic poetry, Portuguese",
+      "Explorers -- Portugal -- Poetry",
+      "Gama, Vasco da, 1469-1524 -- Poetry",
+      "India -- Discovery and exploration -- Poetry",
+      "Portugal -- Colonies -- Asia -- Poetry",
+      "Portuguese poetry -- Classical period, 1500-1700"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:27637",
+    "titulo": "A correspondência de Fradique Mendes: memórias e notas",
+    "autores": [
+      "Queirós, Eça de"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/27637.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/27637.html.images",
+    "texto": "/data/textos/27637.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/27637",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/27637.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/27637.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao",
+      "filosofia"
+    ],
+    "palavras": [
+      "Authors, Portuguese -- 19th century -- Correspondence",
+      "Mendes, Carlos Fradique -- Correspondence",
+      "Queirós, Eça de, 1845-1900 -- Correspondence"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:21406",
+    "titulo": "Novelas do Minho",
+    "autores": [
+      "Castelo Branco, Camilo"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/21406.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/21406.html.images",
+    "texto": "/data/textos/21406.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/21406",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/21406.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/21406.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao"
+    ],
+    "palavras": [
+      "Minho (Portugal) -- Fiction"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:26850",
+    "titulo": "Viriatho: Narrativa epo-historica",
+    "autores": [
+      "Braga, Teófilo"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/26850.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/26850.html.images",
+    "texto": "/data/textos/26850.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/26850",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/26850.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/26850.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "poesia",
+      "politica"
+    ],
+    "palavras": [
+      "Spain -- History -- Roman period, 218 B.C.-414 A.D.",
+      "Viriathus, -approximately 139 B.C. -- Fiction"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:23687",
+    "titulo": "A Morte Vence",
+    "autores": [
+      "Grave, João José"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/23687.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/23687.html.images",
+    "texto": "/data/textos/23687.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/23687",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/23687.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/23687.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao"
+    ],
+    "palavras": [
+      "Fiction"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:26371",
+    "titulo": "Nova Sapho: Tragedia Extranha",
+    "autores": [
+      "Villa-Moura, Bento de Oliveira Cardoso, Visconde de"
+    ],
+    "idiomas": [
+      "pt"
+    ],
+    "capa": "/assets/capas/26371.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/26371.html.images",
+    "texto": "/data/textos/26371.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/26371",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/26371.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/26371.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "ficcao"
+    ],
+    "palavras": [
+      "Portuguese fiction -- 20th century"
+    ],
+    "descricao": ""
+  },
+  {
+    "id": "gutendex:67939",
+    "titulo": "El capital: Resumido y acompañado de un estudio sobre el Socialismo científico",
+    "autores": [
+      "Marx, Karl",
+      "Deville, Gabriel Pierre"
+    ],
+    "idiomas": [
+      "es"
+    ],
+    "capa": "/assets/capas/67939.jpg",
+    "ler": "https://www.gutenberg.org/ebooks/67939.html.images",
+    "texto": "/data/textos/67939.txt",
+    "textoLocal": true,
+    "origem": "https://www.gutenberg.org/ebooks/67939",
+    "fonte": "gutenberg",
+    "provedor": "Project Gutenberg",
+    "acessoLivre": true,
+    "dominioPublico": true,
+    "curadoria": true,
+    "licenca": "Edição gratuita disponibilizada pelo Project Gutenberg. Domínio público nos EUA; autores e colaboradores identificados faleceram há mais de 70 anos.",
+    "formatos": [
+      {
+        "tipo": "EPUB",
+        "url": "https://www.gutenberg.org/ebooks/67939.epub3.images"
+      },
+      {
+        "tipo": "TXT",
+        "url": "https://www.gutenberg.org/ebooks/67939.txt.utf-8"
+      }
+    ],
+    "categorias": [
+      "politica",
+      "filosofia"
+    ],
+    "palavras": [
+      "Capital",
+      "Economics",
+      "Socialism",
+      "Wages"
+    ],
+    "descricao": "Resumo em espanhol de O Capital, acompanhado de um estudo de Gabriel Deville sobre o socialismo científico. Esta edição não é o texto integral dos três volumes."
+  }
+]
