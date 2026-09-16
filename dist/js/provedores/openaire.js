@@ -5,7 +5,7 @@ const urls=i=>lista(i?.urls||i?.url).map(endereco).filter(Boolean);
 const pidsDe=i=>lista(i?.pids||i?.pid).map(p=>({scheme:texto(p?.scheme).toLowerCase(),value:texto(p?.value)})).filter(p=>p.value);
 export function converterOpenAire(item){
  const id=texto(item?.id);if(!id)return null;
- const instancias=lista(item?.instances||item?.instance),abertas=instancias.filter(aberto),instancia=abertas.find(i=>urls(i).length)||abertas[0];
+ const instancias=lista(item?.instances||item?.instance),abertoProduto=/OPEN/i.test(texto(item?.bestAccessRight?.label||item?.bestaccessright?.label)),abertas=instancias.filter(aberto),candidatas=abertas.length?abertas:(abertoProduto?instancias:[]),instancia=candidatas.find(i=>urls(i).length)||candidatas[0];
  const links=instancia?urls(instancia):[];if(!links.length)return null;
  const pids=[...pidsDe(item),...instancias.flatMap(pidsDe)],doi=pids.find(p=>p.scheme==='doi')?.value||null;
  const titulo=texto(item?.mainTitle||item?.maintitle||item?.title)||'Sem título';
@@ -14,7 +14,7 @@ export function converterOpenAire(item){
  const descricao=lista(item?.descriptions||item?.description).map(d=>texto(typeof d==='string'?d:d?.value||d?.description)).find(Boolean)||'';
  const origem=links[0],licenca=texto(instancia?.license||item?.license)||'Acesso aberto indicado pelo OpenAIRE.';
  const formatos=links.filter(u=>/\.(pdf|epub)(?:$|[?#])/i.test(u)).slice(0,2).map(url=>({tipo:/\.pdf(?:$|[?#])/i.test(url)?'PDF':'EPUB',url}));
- const tipo=texto(item?.type).toLowerCase(),rotulo=tipo==='dataset'?'Dataset aberto':tipo==='software'?'Software aberto':tipo==='publication'?'Publicação científica aberta':'Produto de pesquisa aberto';
+ const tipo=texto(item?.type).toLowerCase(),rotulo=(tipo==='dataset'||tipo==='data')?'Dataset aberto':tipo==='software'?'Software aberto':tipo==='publication'?'Publicação científica aberta':'Produto de pesquisa aberto';
  return{id:`openaire:${doi||id}`,fonte:'openaire',provedor:'OpenAIRE Graph',titulo,autores,idiomas:idiomas(lang),capa:null,descricao:[descricao,item?.publicationDate||item?.publicationdate,item?.publisher].filter(Boolean).join(' · '),acessoLivre:true,dominioPublico:false,tipoAcesso:rotulo,licenca,origem,ler:formatos[0]?.url||origem,texto:null,formatos,doi};
 }
 export async function pesquisarOpenAire(q,o={}){
