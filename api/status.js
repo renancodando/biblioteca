@@ -3,8 +3,10 @@ export default function handler(req,res){
   res.setHeader('Cache-Control','no-store');
   return res.status(200).json({
     ok:true,
-    fontes:31,
-    fontesAbertas:['Project Gutenberg','Open Library','Google Books','Wikisource','Internet Archive','OAPEN','DOAB','Europe PMC','ERIC','NCBI Bookshelf','arXiv','DOAJ','Wikibooks','Wikiversidade','Library of Congress','Gallica · BnF','DPLA','Crossref','CORE','Semantic Scholar','Europeana','DigitalNZ','Trove','Open Textbook Library','OpenStax','Pressbooks Directory','Zenodo','HAL','OpenAlex','Unpaywall','Wikidata'],
+    fontes:32,
+    fontesAbertas:['Project Gutenberg','Open Library','Google Books','Wikisource','Internet Archive','OAPEN','DOAB','Europe PMC','ERIC','NCBI Bookshelf','arXiv','DOAJ','Wikibooks','Wikiversidade','Library of Congress','Gallica · BnF','DPLA','Crossref','CORE','Semantic Scholar','Europeana','DigitalNZ','Trove','Open Textbook Library','OpenStax','Pressbooks Directory','Zenodo','HAL','OpenAlex','OpenAIRE','Unpaywall','Wikidata'],
+    fontesPesquisaveis:31,
+    enriquecedores:['Unpaywall'],
     googleBooksKeyConfigured:Boolean(process.env.GOOGLE_BOOKS_API_KEY),
     dplaKeyConfigured:Boolean(process.env.DPLA_API_KEY),
     coreKeyConfigured:Boolean(process.env.CORE_API_KEY),
