@@ -21,6 +21,8 @@ import{pesquisarDigitalNz,pesquisarTrove,pesquisarOpenTextbook,pesquisarOpenStax
 import{pesquisarPressbooks}from'./pressbooks.js';
 import{pesquisarOpenAire}from'./openaire.js';
 import{pesquisarDataCite}from'./datacite.js';
+import{pesquisarBnDigital}from'./bndigital.js';
+import{pesquisarScieloLivros}from'./scielo-livros.js';
 import{normalizarTexto,pontuarCorrespondencia}from'./comum.js';
 export const normalizar=normalizarTexto;
 export const fontesCatalogo=[
@@ -36,10 +38,12 @@ export const fontesCatalogo=[
  {id:'wikiversity',nome:'Wikiversidade',pesquisar:pesquisarWikiversity,prazo:6500,atraso:150},
  {id:'oapen',nome:'OAPEN',pesquisar:pesquisarOapen,prazo:6800,atraso:220},
  {id:'doab',nome:'DOAB',pesquisar:pesquisarDoab,prazo:6800,atraso:220},
+ {id:'scielolivros',nome:'SciELO Livros',pesquisar:pesquisarScieloLivros,prazo:15000,atraso:230},
  {id:'ncbi',nome:'NCBI Bookshelf',pesquisar:pesquisarNcbiBookshelf,prazo:7000,atraso:260},
  {id:'arxiv',nome:'arXiv',pesquisar:pesquisarArxiv,prazo:6800,atraso:260},
  {id:'loc',nome:'Library of Congress',pesquisar:pesquisarLibraryCongress,prazo:7000,atraso:320},
  {id:'gallica',nome:'Gallica · BnF',pesquisar:pesquisarGallica,prazo:7000,atraso:320},
+ {id:'bndigital',nome:'Biblioteca Nacional Digital',pesquisar:pesquisarBnDigital,prazo:15000,atraso:340},
  {id:'dpla',nome:'DPLA',pesquisar:pesquisarDpla,prazo:7200,atraso:360},
  {id:'crossref',nome:'Crossref',pesquisar:pesquisarCrossref,prazo:15000,atraso:380},
  {id:'core',nome:'CORE',pesquisar:pesquisarCore,prazo:14500,atraso:400},
