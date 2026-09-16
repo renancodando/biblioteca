@@ -12,6 +12,12 @@ import{pesquisarArxiv}from'./arxiv.js';
 import{pesquisarDoaj}from'./doaj.js';
 import{pesquisarGallica}from'./gallica.js';
 import{pesquisarWikibooks,pesquisarWikiversity}from'./wikimedia-educacao.js';
+import{pesquisarDpla}from'./dpla.js';
+import{pesquisarCrossref}from'./crossref.js';
+import{pesquisarCore}from'./core.js';
+import{pesquisarSemanticScholar}from'./semantic-scholar.js';
+import{pesquisarEuropeana}from'./europeana.js';
+import{pesquisarDigitalNz,pesquisarTrove,pesquisarOpenTextbook,pesquisarOpenStax,pesquisarPressbooks,pesquisarZenodo,pesquisarHal,pesquisarOpenAlex,pesquisarWikidata}from'./fontes-novas.js';
 import{normalizarTexto,pontuarCorrespondencia}from'./comum.js';
 export const normalizar=normalizarTexto;
 export const fontesCatalogo=[
@@ -30,7 +36,21 @@ export const fontesCatalogo=[
  {id:'ncbi',nome:'NCBI Bookshelf',pesquisar:pesquisarNcbiBookshelf,prazo:7000,atraso:260},
  {id:'arxiv',nome:'arXiv',pesquisar:pesquisarArxiv,prazo:6800,atraso:260},
  {id:'loc',nome:'Library of Congress',pesquisar:pesquisarLibraryCongress,prazo:7000,atraso:320},
- {id:'gallica',nome:'Gallica · BnF',pesquisar:pesquisarGallica,prazo:7000,atraso:320}
+ {id:'gallica',nome:'Gallica · BnF',pesquisar:pesquisarGallica,prazo:7000,atraso:320},
+ {id:'dpla',nome:'DPLA',pesquisar:pesquisarDpla,prazo:7200,atraso:360},
+ {id:'crossref',nome:'Crossref',pesquisar:pesquisarCrossref,prazo:15000,atraso:380},
+ {id:'core',nome:'CORE',pesquisar:pesquisarCore,prazo:14500,atraso:400},
+ {id:'semanticscholar',nome:'Semantic Scholar',pesquisar:pesquisarSemanticScholar,prazo:12500,atraso:420},
+ {id:'europeana',nome:'Europeana',pesquisar:pesquisarEuropeana,prazo:12500,atraso:440},
+ {id:'digitalnz',nome:'DigitalNZ',pesquisar:pesquisarDigitalNz,prazo:12500,atraso:460},
+ {id:'trove',nome:'Trove',pesquisar:pesquisarTrove,prazo:12500,atraso:480},
+ {id:'opentextbook',nome:'Open Textbook Library',pesquisar:pesquisarOpenTextbook,prazo:12500,atraso:500},
+ {id:'openstax',nome:'OpenStax',pesquisar:pesquisarOpenStax,prazo:12500,atraso:520},
+ {id:'pressbooks',nome:'Pressbooks Directory',pesquisar:pesquisarPressbooks,prazo:12500,atraso:540},
+ {id:'zenodo',nome:'Zenodo',pesquisar:pesquisarZenodo,prazo:14500,atraso:560},
+ {id:'hal',nome:'HAL',pesquisar:pesquisarHal,prazo:12500,atraso:580},
+ {id:'openalex',nome:'OpenAlex',pesquisar:pesquisarOpenAlex,prazo:12500,atraso:600},
+ {id:'wikidata',nome:'Wikidata',pesquisar:pesquisarWikidata,prazo:10500,atraso:620}
 ];
 const esperar=ms=>ms?new Promise(r=>setTimeout(r,ms)):Promise.resolve();
 function comPrazo(promessa,ms,nome){let timer;return Promise.race([promessa,new Promise((_,rejeitar)=>{timer=setTimeout(()=>{const e=new Error(`${nome} demorou além do limite e foi liberada para não travar a pesquisa.`);e.codigo='FONTE_LENTA';rejeitar(e)},ms)})]).finally(()=>clearTimeout(timer))}
