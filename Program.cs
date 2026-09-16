@@ -35,9 +35,15 @@ var raiz = Path.Combine(builder.Environment.ContentRootPath, "dist");
 app.MapGet("/api/status", (IConfiguration configuracao) => Results.Json(new
 {
     ok = true,
-    fontes = 16,
-    fontesAbertas = new[] { "Project Gutenberg", "Open Library", "Google Books", "Wikisource", "Internet Archive", "OAPEN", "DOAB", "Europe PMC", "ERIC", "NCBI Bookshelf", "arXiv", "DOAJ", "Wikibooks", "Wikiversidade", "Library of Congress", "Gallica · BnF" },
-    googleBooksKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["GOOGLE_BOOKS_API_KEY"])
+    fontes = 31,
+    fontesAbertas = new[] { "Project Gutenberg", "Open Library", "Google Books", "Wikisource", "Internet Archive", "OAPEN", "DOAB", "Europe PMC", "ERIC", "NCBI Bookshelf", "arXiv", "DOAJ", "Wikibooks", "Wikiversidade", "Library of Congress", "Gallica · BnF", "DPLA", "Crossref", "CORE", "Semantic Scholar", "Europeana", "DigitalNZ", "Trove", "Open Textbook Library", "OpenStax", "Pressbooks Directory", "Zenodo", "HAL", "OpenAlex", "Unpaywall", "Wikidata" },
+    googleBooksKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["GOOGLE_BOOKS_API_KEY"]),
+    dplaKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["DPLA_API_KEY"]),
+    coreKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["CORE_API_KEY"]),
+    europeanaKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["EUROPEANA_API_KEY"]),
+    troveKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["TROVE_API_KEY"]),
+    digitalNzKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["DIGITALNZ_API_KEY"]),
+    semanticScholarKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["SEMANTIC_SCHOLAR_API_KEY"])
 }));
 
 app.MapGet("/api/google-books", async (HttpContext contexto, IHttpClientFactory fabrica, IConfiguration configuracao) =>
@@ -109,17 +115,19 @@ app.MapGet("/api/google-books", async (HttpContext contexto, IHttpClientFactory 
     }
 });
 
-app.MapGet("/api/acervos-gratuitos", async (HttpContext contexto, IHttpClientFactory fabrica) =>
+app.MapGet("/api/acervos-gratuitos", async (HttpContext contexto, IHttpClientFactory fabrica, IConfiguration configuracao) =>
 {
     var fonte = contexto.Request.Query["fonte"].ToString().Trim().ToLowerInvariant();
     var consulta = contexto.Request.Query["q"].ToString().Replace("<", " ").Replace(">", " ").Trim();
     if (consulta.Length > 180) consulta = consulta[..180];
-    if (string.IsNullOrWhiteSpace(consulta)) return Results.BadRequest(new { erro = "Consulta obrigatória." });
+    if (string.IsNullOrWhiteSpace(consulta) && fonte != "openstax") return Results.BadRequest(new { erro = "Consulta obrigatória." });
     if (!int.TryParse(contexto.Request.Query["pagina"], out var pagina) || pagina < 1) pagina = 1;
     pagina = Math.Min(pagina, 500);
     const int limite = 20;
     Uri? alvo = null;
     var xml = false;
+    string? bearerToken = null;
+    string? apiKeyHeader = null;
     if (fonte == "archive")
     {
         var limpa = System.Text.RegularExpressions.Regex.Replace(consulta, @"[+\-!(){}\[\]^~*?:\\/]", " ");
@@ -159,6 +167,68 @@ app.MapGet("/api/acervos-gratuitos", async (HttpContext contexto, IHttpClientFac
         alvo = new Uri($"https://gallica.bnf.fr/SRU?version=1.2&operation=searchRetrieve&maximumRecords={limite}&startRecord={(pagina - 1) * limite + 1}&suggest=0&query={Uri.EscapeDataString(cql)}");
         xml = true;
     }
+    else if (fonte == "dpla")
+    {
+        var chave = configuracao["DPLA_API_KEY"]?.Trim();
+        if (string.IsNullOrWhiteSpace(chave)) return Results.Json(new { desativada = true, livros = Array.Empty<object>(), total = 0, temMais = false });
+        alvo = new Uri($"https://api.dp.la/v2/items?q={Uri.EscapeDataString(consulta)}&page_size={limite}&page={pagina}&api_key={Uri.EscapeDataString(chave)}");
+    }
+    else if (fonte == "crossref")
+        alvo = new Uri($"https://api.crossref.org/works?query={Uri.EscapeDataString(consulta)}&rows={limite}&offset={(pagina - 1) * limite}&sort=relevance&mailto=suporte@bibliotecalivre.org");
+    else if (fonte == "core")
+    {
+        var chave = configuracao["CORE_API_KEY"]?.Trim();
+        if (string.IsNullOrWhiteSpace(chave)) return Results.Json(new { desativada = true, livros = Array.Empty<object>(), total = 0, temMais = false });
+        alvo = new Uri($"https://api.core.ac.uk/v3/search/works?q={Uri.EscapeDataString(consulta)}&limit={limite}&offset={(pagina - 1) * limite}");
+        bearerToken = chave;
+    }
+    else if (fonte == "unpaywall")
+    {
+        var doi = System.Text.RegularExpressions.Regex.Replace(consulta, @"^https?://doi\.org/", string.Empty, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Trim();
+        if (string.IsNullOrWhiteSpace(doi)) return Results.BadRequest(new { erro = "DOI obrigatório." });
+        alvo = new Uri($"https://api.unpaywall.org/v2/{Uri.EscapeDataString(doi)}?email=contato@bibliotecalivre.org");
+    }
+    else if (fonte == "semanticscholar")
+    {
+        alvo = new Uri($"https://api.semanticscholar.org/graph/v1/paper/search?query={Uri.EscapeDataString(consulta)}&offset={(pagina - 1) * limite}&limit={limite}&fields=title,authors,year,abstract,openAccessPdf,url,externalIds,isOpenAccess");
+        var chave = configuracao["SEMANTIC_SCHOLAR_API_KEY"]?.Trim();
+        if (!string.IsNullOrWhiteSpace(chave)) apiKeyHeader = chave;
+    }
+    else if (fonte == "europeana")
+    {
+        var chave = configuracao["EUROPEANA_API_KEY"]?.Trim();
+        if (string.IsNullOrWhiteSpace(chave)) return Results.Json(new { desativada = true, livros = Array.Empty<object>(), total = 0, temMais = false });
+        alvo = new Uri($"https://api.europeana.eu/record/v2/search.json?query={Uri.EscapeDataString(consulta)}&wskey={Uri.EscapeDataString(chave)}&rows={limite}&start={(pagina - 1) * limite + 1}&profile=standard");
+    }
+    else if (fonte == "digitalnz")
+    {
+        var chave = configuracao["DIGITALNZ_API_KEY"]?.Trim();
+        var keyParam = !string.IsNullOrWhiteSpace(chave) ? $"&api_key={Uri.EscapeDataString(chave)}" : string.Empty;
+        alvo = new Uri($"https://api.digitalnz.org/records.json?text={Uri.EscapeDataString(consulta)}&per_page={limite}&page={pagina}{keyParam}");
+    }
+    else if (fonte == "trove")
+    {
+        var chave = configuracao["TROVE_API_KEY"]?.Trim();
+        if (string.IsNullOrWhiteSpace(chave)) return Results.Json(new { desativada = true, livros = Array.Empty<object>(), total = 0, temMais = false });
+        alvo = new Uri($"https://api.trove.nla.gov.au/v3/result?q={Uri.EscapeDataString(consulta)}&category=book&encoding=json&n={limite}&s={(pagina - 1) * limite}&key={Uri.EscapeDataString(chave)}");
+    }
+    else if (fonte == "opentextbook")
+        alvo = new Uri($"https://open.umn.edu/opentextbooks/textbooks.json?term={Uri.EscapeDataString(consulta)}");
+    else if (fonte == "openstax")
+        alvo = new Uri("https://openstax.org/apps/cms/api/books");
+    else if (fonte == "pressbooks")
+        alvo = new Uri($"https://oersi.org/resources/api/search/oer_data/_search?q={Uri.EscapeDataString($"({consulta}) AND (provider:Pressbooks OR mainEntityOfPage:*pressbooks*)")}&size={limite}&from={(pagina - 1) * limite}");
+    else if (fonte == "zenodo")
+        alvo = new Uri($"https://zenodo.org/api/records?q={Uri.EscapeDataString(consulta)}&size={limite}&page={pagina}&access_right=open&sort=bestmatch");
+    else if (fonte == "hal")
+        alvo = new Uri($"https://api.archives-ouvertes.fr/search/?q={Uri.EscapeDataString(consulta)}&rows={limite}&start={(pagina - 1) * limite}&wt=json&fl=docid,label_s,title_s,authFullName_s,producedDateY_i,uri_s,files_s,abstract_s,docType_s,language_s");
+    else if (fonte == "openalex")
+        alvo = new Uri($"https://api.openalex.org/works?search={Uri.EscapeDataString(consulta)}&per-page={limite}&page={pagina}&mailto=suporte@bibliotecalivre.org");
+    else if (fonte == "wikidata")
+    {
+        var sparql = consulta.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase) ? consulta : $"SELECT ?item ?itemLabel ?authorLabel ?date WHERE {{ ?item wdt:P31 wd:571 . ?item rdfs:label \"{consulta}\"@pt . SERVICE wikibase:label {{ bd:serviceParam wikibase:language \"pt,en\". }} }} LIMIT 5";
+        alvo = new Uri($"https://query.wikidata.org/sparql?format=json&query={Uri.EscapeDataString(sparql)}");
+    }
     if (alvo is null) return Results.BadRequest(new { erro = "Fonte não permitida." });
     try
     {
@@ -171,6 +241,10 @@ app.MapGet("/api/acervos-gratuitos", async (HttpContext contexto, IHttpClientFac
             using var pedido = new HttpRequestMessage(HttpMethod.Get, alvo);
             pedido.Headers.Accept.Clear();
             pedido.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(xml ? "application/xml" : "application/json"));
+            if (!string.IsNullOrWhiteSpace(bearerToken))
+                pedido.Headers.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            if (!string.IsNullOrWhiteSpace(apiKeyHeader))
+                pedido.Headers.TryAddWithoutValidation("x-api-key", apiKeyHeader);
             resposta = await cliente.SendAsync(pedido, contexto.RequestAborted);
             corpo = await resposta.Content.ReadAsStringAsync(contexto.RequestAborted);
             if (resposta.IsSuccessStatusCode)
@@ -179,6 +253,11 @@ app.MapGet("/api/acervos-gratuitos", async (HttpContext contexto, IHttpClientFac
                 if (xml) { resposta.Dispose(); return Results.Json(new { xml = corpo }); }
                 var status = (int)resposta.StatusCode; resposta.Dispose();
                 return Results.Content(corpo, "application/json; charset=utf-8", statusCode: status);
+            }
+            if (resposta.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+            {
+                resposta.Dispose();
+                return Results.Json(new { taxaLimite = true, livros = Array.Empty<object>(), total = 0, temMais = false });
             }
             var statusAtual = (int)resposta.StatusCode;
             if (statusAtual is not (408 or 425 or 429 or 500 or 502 or 503 or 504) || tentativa == 1) break;
