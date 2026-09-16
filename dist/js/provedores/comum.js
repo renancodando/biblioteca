@@ -1,7 +1,7 @@
 export async function obterJSON(url,limite=14000,tentativas=3){
  let ultimoErro=null,u;
  try{u=url instanceof URL?url:new URL(url,location.href)}catch{u=null}
- const mesmoServidor=Boolean(u&&u.origin===location.origin),prazo=Math.min(Number(limite)||6000,mesmoServidor?6200:5800),maxTentativas=mesmoServidor?1:Math.min(Math.max(1,tentativas||1),2);
+ const mesmoServidor=Boolean(u&&u.origin===location.origin),prazo=Math.min(Number(limite)||6000,mesmoServidor?18000:5800),maxTentativas=mesmoServidor?1:Math.min(Math.max(1,tentativas||1),2);
  for(let tentativa=0;tentativa<maxTentativas;tentativa++){
   const c=new AbortController(),t=setTimeout(()=>c.abort(),prazo);
   try{
