@@ -19,6 +19,7 @@ import{pesquisarSemanticScholar}from'./semantic-scholar.js';
 import{pesquisarEuropeana}from'./europeana.js';
 import{pesquisarDigitalNz,pesquisarTrove,pesquisarOpenTextbook,pesquisarOpenStax,pesquisarZenodo,pesquisarHal,pesquisarOpenAlex,pesquisarWikidata}from'./fontes-novas.js';
 import{pesquisarPressbooks}from'./pressbooks.js';
+import{pesquisarOpenAire}from'./openaire.js';
 import{normalizarTexto,pontuarCorrespondencia}from'./comum.js';
 export const normalizar=normalizarTexto;
 export const fontesCatalogo=[
@@ -51,6 +52,7 @@ export const fontesCatalogo=[
  {id:'zenodo',nome:'Zenodo',pesquisar:pesquisarZenodo,prazo:14500,atraso:560},
  {id:'hal',nome:'HAL',pesquisar:pesquisarHal,prazo:12500,atraso:580},
  {id:'openalex',nome:'OpenAlex',pesquisar:pesquisarOpenAlex,prazo:12500,atraso:600},
+ {id:'openaire',nome:'OpenAIRE',pesquisar:pesquisarOpenAire,prazo:15500,atraso:610},
  {id:'wikidata',nome:'Wikidata',pesquisar:pesquisarWikidata,prazo:10500,atraso:620}
 ];
 const esperar=ms=>ms?new Promise(r=>setTimeout(r,ms)):Promise.resolve();
