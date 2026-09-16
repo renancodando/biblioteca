@@ -28,6 +28,13 @@ builder.Services.AddHttpClient("acervos-abertos", cliente =>
     cliente.Timeout = TimeSpan.FromSeconds(5);
     cliente.DefaultRequestHeaders.UserAgent.ParseAdd("BibliotecaLivre/2.1");
 });
+builder.Services.AddHttpClient("openaire", cliente =>
+{
+    cliente.BaseAddress = new Uri("https://api.openaire.eu/graph/v3/");
+    cliente.Timeout = TimeSpan.FromSeconds(7);
+    cliente.DefaultRequestHeaders.UserAgent.ParseAdd("BibliotecaLivre/2.1");
+    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+});
 
 var app = builder.Build();
 var raiz = Path.Combine(builder.Environment.ContentRootPath, "dist");
@@ -35,8 +42,10 @@ var raiz = Path.Combine(builder.Environment.ContentRootPath, "dist");
 app.MapGet("/api/status", (IConfiguration configuracao) => Results.Json(new
 {
     ok = true,
-    fontes = 31,
-    fontesAbertas = new[] { "Project Gutenberg", "Open Library", "Google Books", "Wikisource", "Internet Archive", "OAPEN", "DOAB", "Europe PMC", "ERIC", "NCBI Bookshelf", "arXiv", "DOAJ", "Wikibooks", "Wikiversidade", "Library of Congress", "Gallica · BnF", "DPLA", "Crossref", "CORE", "Semantic Scholar", "Europeana", "DigitalNZ", "Trove", "Open Textbook Library", "OpenStax", "Pressbooks Directory", "Zenodo", "HAL", "OpenAlex", "Unpaywall", "Wikidata" },
+    fontes = 32,
+    fontesPesquisaveis = 31,
+    fontesAbertas = new[] { "Project Gutenberg", "Open Library", "Google Books", "Wikisource", "Internet Archive", "OAPEN", "DOAB", "Europe PMC", "ERIC", "NCBI Bookshelf", "arXiv", "DOAJ", "Wikibooks", "Wikiversidade", "Library of Congress", "Gallica · BnF", "DPLA", "Crossref", "CORE", "Semantic Scholar", "Europeana", "DigitalNZ", "Trove", "Open Textbook Library", "OpenStax", "Pressbooks Directory", "Zenodo", "HAL", "OpenAlex", "OpenAIRE", "Unpaywall", "Wikidata" },
+    enriquecedores = new[] { "Unpaywall" },
     googleBooksKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["GOOGLE_BOOKS_API_KEY"]),
     dplaKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["DPLA_API_KEY"]),
     coreKeyConfigured = !string.IsNullOrWhiteSpace(configuracao["CORE_API_KEY"]),
@@ -112,6 +121,46 @@ app.MapGet("/api/google-books", async (HttpContext contexto, IHttpClientFactory 
     catch
     {
         return Results.Json(new { erro = "Google Books temporariamente indisponível.", codigo = "GOOGLE_BOOKS_UNAVAILABLE" }, statusCode: StatusCodes.Status502BadGateway);
+    }
+});
+
+app.MapGet("/api/openaire", async (HttpContext contexto, IHttpClientFactory fabrica) =>
+{
+    var consulta = contexto.Request.Query["q"].ToString().Replace("<", " ").Replace(">", " ").Trim();
+    if (consulta.Length > 180) consulta = consulta[..180];
+    if (string.IsNullOrWhiteSpace(consulta)) return Results.BadRequest(new { erro = "Consulta obrigatória." });
+    if (!int.TryParse(contexto.Request.Query["pagina"], out var pagina) || pagina < 1) pagina = 1;
+    pagina = Math.Min(pagina, 500);
+
+    var query = string.Join('&', new[]
+    {
+        $"search={Uri.EscapeDataString(consulta)}",
+        $"accessRightLabel={Uri.EscapeDataString("Open Access")}",
+        $"accessRightLabel={Uri.EscapeDataString("Open Source")}",
+        $"page={pagina}",
+        "pageSize=20",
+        $"sortBy={Uri.EscapeDataString("relevance DESC")}" 
+    });
+
+    try
+    {
+        var cliente = fabrica.CreateClient("openaire");
+        using var resposta = await cliente.GetAsync($"research-products?{query}", contexto.RequestAborted);
+        var corpo = await resposta.Content.ReadAsStringAsync(contexto.RequestAborted);
+        if (resposta.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+            return Results.Json(new { taxaLimite = true, header = new { numFound = 0, page = pagina, pageSize = 20 }, results = Array.Empty<object>() });
+        if (!resposta.IsSuccessStatusCode)
+            return Results.Content(corpo, "application/json; charset=utf-8", statusCode: (int)resposta.StatusCode);
+        contexto.Response.Headers.CacheControl = "public, max-age=900";
+        return Results.Content(corpo, "application/json; charset=utf-8");
+    }
+    catch (OperationCanceledException)
+    {
+        return Results.Json(new { erro = "OpenAIRE excedeu o tempo de resposta.", codigo = "FONTE_TIMEOUT" }, statusCode: StatusCodes.Status504GatewayTimeout);
+    }
+    catch
+    {
+        return Results.Json(new { erro = "OpenAIRE temporariamente indisponível.", codigo = "FONTE_INDISPONIVEL" }, statusCode: StatusCodes.Status502BadGateway);
     }
 });
 
