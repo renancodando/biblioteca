@@ -27,7 +27,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://gutendex.com https://openlibrary.org https://pt.wikisource.org https://en.wikisource.org https://es.wikisource.org https://fr.wikisource.org https://pt.wikibooks.org https://en.wikibooks.org https://es.wikibooks.org https://fr.wikibooks.org https://pt.wikiversity.org https://en.wikiversity.org https://es.wikiversity.org https://fr.wikiversity.org; font-src 'self' data:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://www.googleapis.com https://gutendex.com https://openlibrary.org https://pt.wikisource.org https://en.wikisource.org https://es.wikisource.org https://fr.wikisource.org https://pt.wikibooks.org https://en.wikibooks.org https://es.wikibooks.org https://fr.wikibooks.org https://pt.wikiversity.org https://en.wikiversity.org https://es.wikiversity.org https://fr.wikiversity.org; font-src 'self' data:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
         }
       ]
     }
