@@ -17,7 +17,8 @@ import{pesquisarCrossref}from'./crossref.js';
 import{pesquisarCore}from'./core.js';
 import{pesquisarSemanticScholar}from'./semantic-scholar.js';
 import{pesquisarEuropeana}from'./europeana.js';
-import{pesquisarDigitalNz,pesquisarTrove,pesquisarOpenTextbook,pesquisarOpenStax,pesquisarPressbooks,pesquisarZenodo,pesquisarHal,pesquisarOpenAlex,pesquisarWikidata}from'./fontes-novas.js';
+import{pesquisarDigitalNz,pesquisarTrove,pesquisarOpenTextbook,pesquisarOpenStax,pesquisarZenodo,pesquisarHal,pesquisarOpenAlex,pesquisarWikidata}from'./fontes-novas.js';
+import{pesquisarPressbooks}from'./pressbooks.js';
 import{normalizarTexto,pontuarCorrespondencia}from'./comum.js';
 export const normalizar=normalizarTexto;
 export const fontesCatalogo=[
