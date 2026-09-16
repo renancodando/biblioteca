@@ -5,7 +5,8 @@ export default async function handler(req,res){
  const pagina=Math.max(1,Math.min(Number.parseInt(req.query.pagina||'1',10)||1,500));
  const u=new URL('https://api.openaire.eu/graph/v3/research-products');
  u.searchParams.set('search',q);
- u.searchParams.set('accessRightLabel','("Open Access" OR "Open Source")');
+ u.searchParams.append('accessRightLabel','Open Access');
+ u.searchParams.append('accessRightLabel','Open Source');
  u.searchParams.set('page',String(pagina));
  u.searchParams.set('pageSize','20');
  u.searchParams.set('sortBy','relevance DESC');
