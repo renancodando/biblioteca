@@ -1,18 +1,29 @@
 {
-  "geradoEm": "2026-09-17T16:47:52.799411+00:00",
+  "geradoEm": "2026-09-17T16:51:46.279641+00:00",
   "fonte": "Tribunal Superior Eleitoral - Portal de Dados Abertos",
   "pacoteOficial": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip",
   "pdfUnico": "/documentos/planos-governo-2026-presidencia.pdf",
+  "quantidadeCandidaturas": 12,
   "documentos": [
     {
       "candidato": "Augusto Cury",
+      "classificacao": "candidatura-validada",
       "arquivo_origem": "BR/2026BR280002551547_01.pdf",
       "paginas": 200,
       "texto": "/dados/planos-governo-2026/augusto-cury.txt",
       "erro": null
     },
     {
+      "candidato": "Clariana Barão",
+      "classificacao": "candidatura-validada",
+      "arquivo_origem": "BR/2026BR280002552484_01.pdf",
+      "paginas": 15,
+      "texto": "/dados/planos-governo-2026/clariana-barao.txt",
+      "erro": null
+    },
+    {
       "candidato": "Edmilson Costa",
+      "classificacao": "candidatura-validada",
       "arquivo_origem": "BR/2026BR280002551975_01.pdf",
       "paginas": 16,
       "texto": "/dados/planos-governo-2026/edmilson-costa.txt",
@@ -20,48 +31,39 @@
     },
     {
       "candidato": "Flávio Bolsonaro",
-      "arquivo_origem": "BR/2026BR280002541457_01.pdf",
-      "paginas": 33,
+      "classificacao": "candidatura-validada",
+      "arquivo_origem": "BR/2026BR280002551544_01.pdf",
+      "paginas": 76,
       "texto": "/dados/planos-governo-2026/flavio-bolsonaro.txt",
       "erro": null
     },
     {
+      "candidato": "Hertz Dias",
+      "classificacao": "candidatura-validada",
+      "arquivo_origem": "BR/2026BR280002541457_01.pdf",
+      "paginas": 33,
+      "texto": "/dados/planos-governo-2026/hertz-dias.txt",
+      "erro": null
+    },
+    {
       "candidato": "Luiz Inácio Lula da Silva",
-      "arquivo_origem": "BR/2026BR280002540694_01.pdf",
-      "paginas": 51,
+      "classificacao": "candidatura-validada",
+      "arquivo_origem": "BR/2026BR280002542548_01.pdf",
+      "paginas": 84,
       "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva.txt",
       "erro": null
     },
     {
-      "candidato": "Luiz Inácio Lula da Silva",
-      "arquivo_origem": "BR/2026BR280002542548_01.pdf",
-      "paginas": 84,
-      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva-2.txt",
-      "erro": null
-    },
-    {
-      "candidato": "Luiz Inácio Lula da Silva",
-      "arquivo_origem": "BR/2026BR280002552487_01.pdf",
-      "paginas": 7,
-      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva-3.txt",
-      "erro": null
-    },
-    {
-      "candidato": "Luiz Inácio Lula da Silva",
-      "arquivo_origem": "BR/2026BR280002553884_01.pdf",
-      "paginas": 28,
-      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva-4.txt",
-      "erro": null
-    },
-    {
-      "candidato": "Luiz Inácio Lula da Silva",
-      "arquivo_origem": "BR/2026BR280002554479_01.pdf",
-      "paginas": 48,
-      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva-5.txt",
+      "candidato": "Renan Santos",
+      "classificacao": "candidatura-validada",
+      "arquivo_origem": "BR/2026BR280002540694_01.pdf",
+      "paginas": 51,
+      "texto": "/dados/planos-governo-2026/renan-santos.txt",
       "erro": null
     },
     {
       "candidato": "Ronaldo Caiado",
+      "classificacao": "candidatura-validada",
       "arquivo_origem": "BR/2026BR280002551932_01.pdf",
       "paginas": 100,
       "texto": "/dados/planos-governo-2026/ronaldo-caiado.txt",
@@ -69,13 +71,23 @@
     },
     {
       "candidato": "Romeu Zema",
+      "classificacao": "candidatura-validada",
       "arquivo_origem": "BR/2026BR280002539826_01.pdf",
       "paginas": 81,
       "texto": "/dados/planos-governo-2026/romeu-zema.txt",
       "erro": null
     },
     {
+      "candidato": "Rui Costa Pimenta",
+      "classificacao": "candidatura-validada",
+      "arquivo_origem": "BR/2026BR280002552487_01.pdf",
+      "paginas": 7,
+      "texto": "/dados/planos-governo-2026/rui-costa-pimenta.txt",
+      "erro": null
+    },
+    {
       "candidato": "Samara Martins",
+      "classificacao": "candidatura-validada",
       "arquivo_origem": "BR/2026BR280002538811_01.pdf",
       "paginas": 67,
       "texto": "/dados/planos-governo-2026/samara-martins.txt",
@@ -83,30 +95,28 @@
     },
     {
       "candidato": "Wilson Grassi",
+      "classificacao": "candidatura-validada",
       "arquivo_origem": "BR/2026BR280002548139_01.pdf",
       "paginas": 58,
       "texto": "/dados/planos-governo-2026/wilson-grassi.txt",
       "erro": null
-    },
+    }
+  ],
+  "registrosAdicionais": [
     {
-      "candidato": "2026BR280002551544_01",
-      "arquivo_origem": "BR/2026BR280002551544_01.pdf",
-      "paginas": 76,
-      "texto": "/dados/planos-governo-2026/2026br280002551544-01.txt",
+      "candidato": "Leonardo Avalanche",
+      "classificacao": "registro-adicional",
+      "arquivo_origem": "BR/2026BR280002554479_01.pdf",
+      "paginas": 48,
+      "texto": "/dados/planos-governo-2026/leonardo-avalanche.txt",
       "erro": null
     },
     {
-      "candidato": "2026BR280002552484_01",
-      "arquivo_origem": "BR/2026BR280002552484_01.pdf",
-      "paginas": 15,
-      "texto": "/dados/planos-governo-2026/2026br280002552484-01.txt",
-      "erro": null
-    },
-    {
-      "candidato": "leiame",
-      "arquivo_origem": "BR/leiame.pdf",
-      "paginas": 1,
-      "texto": "/dados/planos-governo-2026/leiame.txt",
+      "candidato": "Pablo Marçal",
+      "classificacao": "registro-adicional",
+      "arquivo_origem": "BR/2026BR280002553884_01.pdf",
+      "paginas": 28,
+      "texto": "/dados/planos-governo-2026/pablo-marcal.txt",
       "erro": null
     }
   ]
