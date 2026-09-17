@@ -82,34 +82,47 @@ async function abrir(tipo,botao){
  }
 }
 
-async function garantirManifesto(botao){
+async function abrirManifestoDireto(botao){
  const original=botao?.innerHTML;
  try{
   if(botao){botao.disabled=true;botao.setAttribute('aria-busy','true');}
-  await importar('manifesto-completo','./manifesto-final-completo.js?v=20260917mf8');
-  await importar('manifesto-fecho','./manifesto-fecho.js?v=20260917mf9');
-  botao.dataset.lazyBypass='1';
-  botao.click();
-  delete botao.dataset.lazyBypass;
-  queueMicrotask(()=>window.BibliotecaManifestoCompleto?.renderizar?.());
+  await importar('manifesto-completo','./manifesto-final-completo.js?v=20260917mf10');
+  await importar('manifesto-fecho','./manifesto-fecho.js?v=20260917mf11');
+  const painel=document.querySelector('#painel');
+  const alvo=document.querySelector('#conteudo-painel');
+  if(!painel||!alvo)throw new Error('Painel do manifesto não encontrado');
+  window.BibliotecaManifestoCompleto?.renderizar?.();
+  window.BibliotecaManifestoFecho?.aplicar?.();
+  painel.scrollTop=0;
+  if(!painel.open){
+   try{painel.showModal()}catch{painel.setAttribute('open','')}
+  }
+  await raf2();
+  window.BibliotecaManifestoFecho?.aplicar?.();
+ }catch(e){
+  console.error('Falha ao abrir Manifesto:',e);
+  const painel=document.querySelector('#painel');
+  const alvo=document.querySelector('#conteudo-painel');
+  if(alvo)alvo.innerHTML='<div class="estado-vazio"><h3>Não foi possível abrir o Manifesto.</h3><p>Recarregue a página e tente novamente.</p></div>';
+  if(painel&&!painel.open){try{painel.showModal()}catch{}}
  }finally{
   if(botao){botao.disabled=false;botao.removeAttribute('aria-busy');if(original!=null)botao.innerHTML=original;}
  }
 }
 
 document.addEventListener('click',e=>{
+ const manifesto=e.target.closest?.('[data-painel="manifesto"]');
+ if(manifesto){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  abrirManifestoDireto(manifesto);
+  return;
+ }
  const modulo=e.target.closest?.('[data-modulo-final]');
- if(modulo&&!modulo.dataset.lazyBypass){
+ if(modulo){
   e.preventDefault();
   e.stopImmediatePropagation();
   abrir(modulo.dataset.moduloFinal,modulo);
-  return;
- }
- const manifesto=e.target.closest?.('[data-painel="manifesto"]');
- if(manifesto&&!manifesto.dataset.lazyBypass){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-  garantirManifesto(manifesto);
  }
 },true);
 
@@ -118,12 +131,12 @@ function carregarDesktopOcioso(){
  const tarefa=async()=>{
   await Promise.allSettled([
    importar('constelacao','./constelacao.js?v=20260917c16'),
-   importar('manifesto-completo','./manifesto-final-completo.js?v=20260917mf8'),
-   importar('manifesto-fecho','./manifesto-fecho.js?v=20260917mf9')
+   importar('manifesto-completo','./manifesto-final-completo.js?v=20260917mf10'),
+   importar('manifesto-fecho','./manifesto-fecho.js?v=20260917mf11')
   ]);
  };
  if('requestIdleCallback'in window)requestIdleCallback(tarefa,{timeout:4500});else setTimeout(tarefa,2500);
 }
 
 carregarDesktopOcioso();
-window.BibliotecaLazyModules={garantir,abrir};
+window.BibliotecaLazyModules={garantir,abrir,abrirManifestoDireto};
