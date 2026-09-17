@@ -43,5 +43,6 @@ new MutationObserver(marcarConstelacaoEmTestes).observe(document.body,{childList
 Promise.allSettled([
  carregarModulo('./constelacao.js?v=20260917c2','Constelação de Livros'),
  carregarModulo('./lingua-viva.js?v=20260917v2','Ouça uma Língua Viva'),
- carregarModulo('./observatorio-politico.js?v=20260917p2','Observatório Político')
+ carregarModulo('./observatorio-politico.js?v=20260917p2','Observatório Político'),
+ carregarModulo('./presidencia.js?v=20260917pr1','Busca da Presidência')
 ]);
