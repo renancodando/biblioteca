@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "modo": "estatico",
+  "fontes": 35,
+  "fontesAbertas": ["Project Gutenberg","Open Library","Google Books","Wikisource","Internet Archive","OAPEN","DOAB","SciELO Livros","Europe PMC","ERIC","NCBI Bookshelf","arXiv","DOAJ","Wikibooks","Wikiversidade","Library of Congress","Gallica · BnF","Biblioteca Nacional Digital","DPLA","Crossref","CORE","Semantic Scholar","Europeana","DigitalNZ","Trove","Open Textbook Library","OpenStax","Pressbooks Directory","Zenodo","HAL","OpenAlex","OpenAIRE","DataCite","Unpaywall","Wikidata"],
+  "fontesPesquisaveis": 34,
+  "enriquecedores": ["Unpaywall"],
+  "idiomasFontes": 24,
+  "observacao": "Status estrutural da Biblioteca Livre. Variáveis privadas de ambiente são verificadas apenas no runtime da Vercel."
+}
