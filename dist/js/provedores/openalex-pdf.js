@@ -1,3 +1,4 @@
+import'../sobre-fontes.js';
 import{obterJSON,endereco,consultaLimpa,pontuarCorrespondencia,idiomas}from'./comum.js';
 const A=v=>Array.isArray(v)?v:v==null?[]:[v],S=v=>String(v??'').trim();
 function pdfAberto(x){const candidatos=[x?.best_oa_location,x?.primary_location,...A(x?.locations)].filter(Boolean);for(const l of candidatos){const pdf=endereco(l?.pdf_url);if(pdf&&l?.is_oa!==false)return pdf}const oa=endereco(x?.open_access?.oa_url);return oa&&/\.pdf(?:$|[?#])/i.test(oa)?oa:null}
