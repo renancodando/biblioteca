@@ -7,9 +7,9 @@ const carregarEstilo=(href)=>{
  document.head.append(link);
 };
 
-carregarEstilo('/css/experiencias.css?v=20260917x2');
-carregarEstilo('/css/observatorio-politico.css?v=20260917p2');
-carregarEstilo('/css/correcao-lateral.css?v=20260917l2');
+carregarEstilo('/css/experiencias.css?v=20260917x3');
+carregarEstilo('/css/observatorio-politico.css?v=20260917p3');
+carregarEstilo('/css/correcao-lateral.css?v=20260917l3');
 
 async function carregarModulo(caminho,nome){
  try{
@@ -41,8 +41,8 @@ marcarConstelacaoEmTestes();
 new MutationObserver(marcarConstelacaoEmTestes).observe(document.body,{childList:true,subtree:true});
 
 Promise.allSettled([
- carregarModulo('./constelacao.js?v=20260917c2','Constelação de Livros'),
- carregarModulo('./lingua-viva.js?v=20260917v2','Ouça uma Língua Viva'),
- carregarModulo('./observatorio-politico.js?v=20260917p2','Observatório Político'),
- carregarModulo('./presidencia.js?v=20260917pr1','Busca da Presidência')
+ carregarModulo('./constelacao.js?v=20260917c3','Constelação de Livros'),
+ carregarModulo('./lingua-viva.js?v=20260917v3','Ouça uma Língua Viva'),
+ carregarModulo('./observatorio-politico.js?v=20260917p3','Observatório Político'),
+ carregarModulo('./presidencia.js?v=20260917pr2','Dossiê documental da Presidência')
 ]);
