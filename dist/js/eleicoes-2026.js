@@ -1,6 +1,6 @@
 const estilo=document.createElement('link');
 estilo.rel='stylesheet';
-estilo.href='/css/eleicoes-2026.css?v=20260917e1';
+estilo.href='/css/eleicoes-2026.css?v=20260917e2';
 document.head.append(estilo);
 
 const $=(s,r=document)=>r.querySelector(s);
@@ -16,7 +16,12 @@ async function dados(){
  return d;
 }
 
-function arquivo(nome,url,descricao){return `<a class="eleicao-arquivo" href="${escapar(url)}" target="_blank" rel="noopener noreferrer"><span>PDF / ZIP OFICIAL</span><strong>${escapar(nome)}</strong><small>${escapar(descricao)}</small><b>Baixar ↗</b></a>`}
+function arquivo(nome,url,descricao){
+ const ehZip=/\.zip(?:$|[?#])/i.test(String(url||''));
+ const atributos=ehZip?' download':' target="_blank" rel="noopener noreferrer"';
+ const acao=ehZip?'Baixar arquivo ↓':'Abrir / baixar ↗';
+ return `<a class="eleicao-arquivo" href="${escapar(url)}"${atributos}><span>PDF / ZIP OFICIAL</span><strong>${escapar(nome)}</strong><small>${escapar(descricao)}</small><b>${acao}</b></a>`
+}
 function cartao(c){return `<article class="eleicao-candidato"><div class="eleicao-candidato-topo"><div><span class="rotulo">${escapar(c.partido||'PARTIDO NÃO INFORMADO')}</span><h4>${escapar(c.nome)}</h4><p>Vice: ${escapar(c.vice||'Não informado')}</p></div>${c.numero?`<strong class="eleicao-numero">${escapar(c.numero)}</strong>`:''}</div><div class="eleicao-situacao"><span>REGISTRO</span><b>${escapar(c.situacao||'Validado pelo TSE')}</b></div><div class="eleicao-acoes"><button data-candidato-eleicao="${escapar(c.nome)}">Documentos oficiais</button></div></article>`}
 
 async function abrirDetalhe(nome){
