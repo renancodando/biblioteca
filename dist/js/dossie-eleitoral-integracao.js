@@ -1,3 +1,7 @@
+const estiloIntegracao=document.createElement('style');
+estiloIntegracao.textContent='.eleicao-acoes .botao-dossie-completo{grid-column:1/-1;border-color:#d5b58370;color:#ead7b4}.judicial-resumo-card{display:grid;gap:3px;border-top:1px solid var(--linha);padding-top:10px}.judicial-resumo-card span{font:9px var(--ui);letter-spacing:.11em;color:#a9987d}.judicial-resumo-card b{font:16px var(--serif);font-weight:400;color:#e4d5bd}.judicial-resumo-card small{font:10px/1.35 var(--ui);color:#91887c}';
+document.head.append(estiloIntegracao);
+
 function integrarCartoes(){
  const cartoes=[...document.querySelectorAll('.eleicao-candidato')];
  let mudou=false;
