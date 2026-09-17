@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import difflib
+import hashlib
 import io
 import json
 import re
@@ -18,8 +20,10 @@ URL = "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_
 PORTAL = "https://dadosabertos.tse.jus.br/dataset/candidatos-2026"
 ROOT = Path(__file__).resolve().parents[1]
 OUT_PDF = ROOT / "dist" / "documentos" / "planos-governo-2026-presidencia.pdf"
+OUT_PDFS = ROOT / "dist" / "documentos" / "planos-governo-2026"
 OUT_TEXT = ROOT / "dist" / "dados" / "planos-governo-2026"
 OUT_INDEX = OUT_TEXT / "index.json"
+OUT_VERSOES = OUT_TEXT / "versoes.json"
 TMP = ROOT / ".tmp-planos-2026"
 
 CANDIDATOS = [
@@ -74,15 +78,19 @@ def identificar(nome_arquivo: str) -> tuple[str, str]:
     return MAPA_ARQUIVOS.get(base, (Path(base).stem, "registro-nao-mapeado"))
 
 
+def carregar_json(caminho: Path, padrao):
+    try:
+        return json.loads(caminho.read_text(encoding="utf-8"))
+    except Exception:
+        return padrao
+
+
 def baixar_zip(destino: Path) -> None:
     cookies = TMP / "cookies.txt"
     user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
     subprocess.run([
-        "curl", "-sS", "-L", "--compressed",
-        "-A", user_agent,
-        "-c", str(cookies),
-        "-o", "/dev/null",
-        PORTAL,
+        "curl", "-sS", "-L", "--compressed", "-A", user_agent,
+        "-c", str(cookies), "-o", "/dev/null", PORTAL,
     ], check=True)
     tentativas = [
         URL,
@@ -94,16 +102,11 @@ def baixar_zip(destino: Path) -> None:
         try:
             subprocess.run([
                 "curl", "-sS", "-L", "--fail", "--retry", "3", "--retry-all-errors", "--compressed",
-                "-A", user_agent,
-                "-e", PORTAL,
-                "-b", str(cookies),
+                "-A", user_agent, "-e", PORTAL, "-b", str(cookies),
                 "-H", "Accept: application/zip,application/octet-stream;q=0.9,*/*;q=0.8",
                 "-H", "Accept-Language: pt-BR,pt;q=0.9,en;q=0.8",
-                "-H", "Sec-Fetch-Dest: document",
-                "-H", "Sec-Fetch-Mode: navigate",
-                "-H", "Sec-Fetch-Site: same-site",
-                "-o", str(destino),
-                url,
+                "-H", "Sec-Fetch-Dest: document", "-H", "Sec-Fetch-Mode: navigate", "-H", "Sec-Fetch-Site: same-site",
+                "-o", str(destino), url,
             ], check=True)
             if destino.exists() and destino.stat().st_size > 1000 and destino.read_bytes()[:2] == b"PK":
                 return
@@ -113,14 +116,29 @@ def baixar_zip(destino: Path) -> None:
     raise RuntimeError(f"Nao foi possivel baixar o pacote do TSE: {ultimo_erro}")
 
 
-def extrair_texto(reader: PdfReader) -> str:
-    partes = []
-    for pagina in reader.pages:
+def extrair_paginas(reader: PdfReader) -> list[dict]:
+    paginas = []
+    for numero_pagina, pagina in enumerate(reader.pages, 1):
         try:
-            partes.append(pagina.extract_text() or "")
+            texto = pagina.extract_text() or ""
         except Exception:
-            partes.append("")
-    return "\n\n".join(partes).strip()
+            texto = ""
+        paginas.append({"pagina": numero_pagina, "texto": texto.strip()})
+    return paginas
+
+
+def resumo_diff(anterior: str, atual: str) -> dict:
+    a = anterior.splitlines()
+    b = atual.splitlines()
+    diff = list(difflib.unified_diff(a, b, lineterm="", n=1))
+    adicionadas = [x[1:].strip() for x in diff if x.startswith("+") and not x.startswith("+++") and x[1:].strip()]
+    removidas = [x[1:].strip() for x in diff if x.startswith("-") and not x.startswith("---") and x[1:].strip()]
+    return {
+        "linhasAdicionadas": len(adicionadas),
+        "linhasRemovidas": len(removidas),
+        "amostraAdicionada": adicionadas[:8],
+        "amostraRemovida": removidas[:8],
+    }
 
 
 def capa_pdf(candidatos: list[str], gerado_em: str) -> bytes:
@@ -156,12 +174,34 @@ def capa_pdf(candidatos: list[str], gerado_em: str) -> bytes:
     return buf.getvalue()
 
 
+def preservar_versao_anterior(base: str, antigo: dict, novo_hash: str) -> None:
+    hash_antigo = antigo.get("sha256")
+    if not hash_antigo or hash_antigo == novo_hash:
+        return
+    pasta_dados = OUT_TEXT / "historico" / base
+    pasta_pdfs = OUT_PDFS / "historico" / base
+    pasta_dados.mkdir(parents=True, exist_ok=True)
+    pasta_pdfs.mkdir(parents=True, exist_ok=True)
+    json_atual = OUT_TEXT / f"{base}.json"
+    txt_atual = OUT_TEXT / f"{base}.txt"
+    pdf_atual = OUT_PDFS / f"{base}.pdf"
+    if json_atual.exists():
+        shutil.copy2(json_atual, pasta_dados / f"{hash_antigo}.json")
+    if txt_atual.exists():
+        shutil.copy2(txt_atual, pasta_dados / f"{hash_antigo}.txt")
+    if pdf_atual.exists():
+        shutil.copy2(pdf_atual, pasta_pdfs / f"{hash_antigo}.pdf")
+
+
 def main() -> None:
     shutil.rmtree(TMP, ignore_errors=True)
-    shutil.rmtree(OUT_TEXT, ignore_errors=True)
     TMP.mkdir(parents=True)
     OUT_PDF.parent.mkdir(parents=True, exist_ok=True)
+    OUT_PDFS.mkdir(parents=True, exist_ok=True)
     OUT_TEXT.mkdir(parents=True, exist_ok=True)
+
+    versoes = carregar_json(OUT_VERSOES, {"candidatos": {}})
+    versoes.setdefault("candidatos", {})
 
     zip_path = TMP / "proposta_governo_2026_BR.zip"
     baixar_zip(zip_path)
@@ -172,35 +212,39 @@ def main() -> None:
             raise RuntimeError("O pacote oficial do TSE nao trouxe PDFs.")
         z.extractall(TMP / "extraido")
 
+    gerado_em = datetime.now(timezone.utc).isoformat()
     itens = []
     for nome_zip in nomes:
         caminho = TMP / "extraido" / nome_zip
         candidato, classificacao = identificar(nome_zip)
+        if classificacao == "metadado":
+            continue
         try:
+            bytes_pdf = caminho.read_bytes()
+            sha = hashlib.sha256(bytes_pdf).hexdigest()
             reader = PdfReader(str(caminho), strict=False)
             if reader.is_encrypted:
                 try:
                     reader.decrypt("")
                 except Exception:
                     pass
-            texto = extrair_texto(reader)
+            paginas = extrair_paginas(reader)
+            texto = "\n\n".join(p["texto"] for p in paginas).strip()
             itens.append({
                 "candidato": candidato,
                 "classificacao": classificacao,
                 "arquivo": str(caminho),
                 "arquivo_origem": nome_zip,
-                "paginas": len(reader.pages),
+                "paginas": paginas,
+                "quantidade_paginas": len(reader.pages),
                 "texto": texto,
+                "sha256": sha,
             })
         except Exception as exc:
             itens.append({
-                "candidato": candidato,
-                "classificacao": classificacao,
-                "arquivo": str(caminho),
-                "arquivo_origem": nome_zip,
-                "paginas": 0,
-                "texto": "",
-                "erro": str(exc),
+                "candidato": candidato, "classificacao": classificacao,
+                "arquivo": str(caminho), "arquivo_origem": nome_zip,
+                "paginas": [], "quantidade_paginas": 0, "texto": "", "sha256": "", "erro": str(exc),
             })
 
     ordem = {normalizar(nome): i for i, nome in enumerate(CANDIDATOS)}
@@ -208,45 +252,70 @@ def main() -> None:
 
     registros = []
     extras = []
-    usados = set()
     for item in itens:
-        if item["classificacao"] == "metadado":
-            continue
         base = slug(item["candidato"])
-        nome_txt = base + ".txt"
-        contador = 2
-        while nome_txt in usados:
-            nome_txt = f"{base}-{contador}.txt"
-            contador += 1
-        usados.add(nome_txt)
-        (OUT_TEXT / nome_txt).write_text(item["texto"], encoding="utf-8")
-        reg = {
+        json_atual = OUT_TEXT / f"{base}.json"
+        txt_atual = OUT_TEXT / f"{base}.txt"
+        pdf_atual = OUT_PDFS / f"{base}.pdf"
+        antigo = carregar_json(json_atual, {})
+        preservar_versao_anterior(base, antigo, item["sha256"])
+
+        alteracoes = None
+        if antigo.get("sha256") and antigo.get("sha256") != item["sha256"]:
+            alteracoes = resumo_diff(antigo.get("textoCompleto", ""), item["texto"])
+
+        shutil.copy2(item["arquivo"], pdf_atual)
+        txt_atual.write_text(item["texto"], encoding="utf-8")
+        documento = {
             "candidato": item["candidato"],
             "classificacao": item["classificacao"],
             "arquivo_origem": item["arquivo_origem"],
             "paginas": item["paginas"],
-            "texto": f"/dados/planos-governo-2026/{nome_txt}",
+            "quantidadePaginas": item["quantidade_paginas"],
+            "textoCompleto": item["texto"],
+            "sha256": item["sha256"],
+            "geradoEm": gerado_em,
+            "fonte": "Tribunal Superior Eleitoral - Portal de Dados Abertos",
+            "pacoteOficial": URL,
+            "pdf": f"/documentos/planos-governo-2026/{base}.pdf",
             "erro": item.get("erro"),
         }
-        if item["classificacao"] == "candidatura-validada":
-            registros.append(reg)
-        else:
-            extras.append(reg)
+        json_atual.write_text(json.dumps(documento, ensure_ascii=False, indent=2), encoding="utf-8")
+
+        historico = versoes["candidatos"].setdefault(item["candidato"], [])
+        if item["sha256"] and not any(x.get("sha256") == item["sha256"] for x in historico):
+            historico.append({
+                "sha256": item["sha256"],
+                "detectadoEm": gerado_em,
+                "paginas": item["quantidade_paginas"],
+                "arquivoOrigem": item["arquivo_origem"],
+                "alteracoesDesdeAnterior": alteracoes,
+            })
+
+        reg = {
+            "candidato": item["candidato"],
+            "classificacao": item["classificacao"],
+            "arquivo_origem": item["arquivo_origem"],
+            "paginas": item["quantidade_paginas"],
+            "texto": f"/dados/planos-governo-2026/{base}.txt",
+            "dadosPaginas": f"/dados/planos-governo-2026/{base}.json",
+            "pdf": f"/documentos/planos-governo-2026/{base}.pdf",
+            "sha256": item["sha256"],
+            "erro": item.get("erro"),
+        }
+        (registros if item["classificacao"] == "candidatura-validada" else extras).append(reg)
 
     faltantes = sorted(set(CANDIDATOS) - {x["candidato"] for x in registros})
     if faltantes:
         raise RuntimeError("Planos faltantes no pacote: " + ", ".join(faltantes))
 
-    gerado_em = datetime.now(timezone.utc).isoformat()
     writer = PdfWriter()
     capa = PdfReader(io.BytesIO(capa_pdf([x["candidato"] for x in registros], gerado_em)))
     for pagina in capa.pages:
         writer.add_page(pagina)
-
     validos_por_nome = {x["candidato"]: x for x in itens if x["classificacao"] == "candidatura-validada"}
     for nome in CANDIDATOS:
-        item = validos_por_nome[nome]
-        reader = PdfReader(item["arquivo"], strict=False)
+        reader = PdfReader(validos_por_nome[nome]["arquivo"], strict=False)
         if reader.is_encrypted:
             try:
                 reader.decrypt("")
@@ -254,10 +323,11 @@ def main() -> None:
                 continue
         for pagina in reader.pages:
             writer.add_page(pagina)
-
     with OUT_PDF.open("wb") as f:
         writer.write(f)
 
+    versoes["atualizadoEm"] = gerado_em
+    OUT_VERSOES.write_text(json.dumps(versoes, ensure_ascii=False, indent=2), encoding="utf-8")
     OUT_INDEX.write_text(json.dumps({
         "geradoEm": gerado_em,
         "fonte": "Tribunal Superior Eleitoral - Portal de Dados Abertos",
@@ -266,6 +336,7 @@ def main() -> None:
         "quantidadeCandidaturas": len(registros),
         "documentos": registros,
         "registrosAdicionais": extras,
+        "historicoVersoes": "/dados/planos-governo-2026/versoes.json",
     }, ensure_ascii=False, indent=2), encoding="utf-8")
 
     shutil.rmtree(TMP, ignore_errors=True)
