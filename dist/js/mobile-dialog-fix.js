@@ -3,7 +3,7 @@ const esperar=ms=>new Promise(r=>setTimeout(r,ms));
 const raf=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
 
 const estilo=document.createElement('style');
-estilo.textContent=`@media(max-width:900px){#painel{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}#painel>.fechar{position:fixed!important;z-index:2147483646!important;right:max(14px,env(safe-area-inset-right))!important;top:max(12px,env(safe-area-inset-top))!important;background:#0d1512f2!important;box-shadow:0 8px 28px #0008!important}dialog[open]{pointer-events:auto!important}.mobile-transicao-dialog{pointer-events:none!important}}`;
+estilo.textContent=`@media(max-width:900px){#painel{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}#painel>.fechar{position:fixed!important;z-index:2147483646!important;right:max(14px,env(safe-area-inset-right))!important;top:max(12px,env(safe-area-inset-top))!important;background:#0d1512f2!important;box-shadow:0 8px 28px #0008!important}dialog[open]{pointer-events:auto!important}}`;
 document.head.append(estilo);
 
 function limparBloqueio(){
@@ -59,11 +59,6 @@ async function abrirModulo(tipo){
  }
 }
 
-async function irPainel(tipo){
- const ok=clicarExterno(`[data-painel="${CSS.escape(tipo)}"]`);
- if(!ok&&tipo==='manifesto')window.BibliotecaManifestoCompleto?.renderizar?.();
-}
-
 async function irAcao(tipo){
  clicarExterno(`[data-acao="${CSS.escape(tipo)}"]`);
 }
@@ -81,18 +76,14 @@ document.addEventListener('click',e=>{
   return;
  }
  if(!dentroPainel)return;
+ if(botao.dataset.painel){
+  return;
+ }
  if(botao.dataset.moduloFinal){
   e.preventDefault();
   e.stopImmediatePropagation();
   const tipo=botao.dataset.moduloFinal;
   transicao(()=>abrirModulo(tipo));
-  return;
- }
- if(botao.dataset.painel){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-  const tipo=botao.dataset.painel;
-  transicao(()=>irPainel(tipo));
   return;
  }
  if(botao.dataset.acao){
