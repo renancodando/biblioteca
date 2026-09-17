@@ -7,14 +7,12 @@ Nota metodológica: os indicadores abaixo são propostos para acompanhamento. Me
 devem ser calibradas com diagnóstico oficial, linha de base, estimativa fiscal, competências federativas e
 avaliação jurídica.
 
-
 Página 2
 Arquitetura do plano
 O plano organiza a ação pública em seis capítulos integrados. O primeiro - proteção de
 mulheres e crianças - funciona como eixo transversal. Os demais tratam dos meios
 necessários para produzir autonomia, oportunidade, liberdade, saúde e capacidade de
 entrega.
-
 
 Página 3
 1. Mulheres e crianças em primeiro lugar
@@ -52,7 +50,6 @@ coordenação federativa e acompanhamento público.
 cobertura de programas preventivos.
 1.5 Governança transversal de proteção
 
-
 Página 4
 Objetivo. Transformar o eixo em uma agenda executável, com responsabilidades claras,
 coordenação federativa e acompanhamento público.
@@ -61,7 +58,6 @@ coordenação federativa e acompanhamento público.
  • Avaliação de impacto sobre mulheres e crianças
  Indicadores sugeridos: execução orçamentária; indicadores publicados no prazo; políticas avaliadas; metas
 interministeriais cumpridas.
-
 
 Página 5
 2. Economia - prosperidade que protege
@@ -99,7 +95,6 @@ coordenação federativa e acompanhamento público.
 exportações de maior valor agregado.
 2.5 Responsabilidade fiscal com foco em resultado
 
-
 Página 6
 Objetivo. Transformar o eixo em uma agenda executável, com responsabilidades claras,
 coordenação federativa e acompanhamento público.
@@ -108,7 +103,6 @@ coordenação federativa e acompanhamento público.
  • Transparência de benefícios e avaliação de impacto
  Indicadores sugeridos: resultado fiscal; dívida/PIB; programas avaliados; economia obtida por revisão de
 gastos.
-
 
 Página 7
 3. Educação - preparar para o futuro
@@ -146,14 +140,12 @@ em programas.
 Objetivo. Transformar o eixo em uma agenda executável, com responsabilidades claras,
 coordenação federativa e acompanhamento público.
 
-
 Página 8
 • Expansão de formação técnica conectada às vocações regionais
  • Orientação de carreira e aprendizagem profissional
  • Parcerias com setor produtivo e ensino superior
  Indicadores sugeridos: matrículas técnicas; conclusão; emprego após formação; aderência entre curso e
 ocupação.
-
 
 Página 9
 4. Segurança - proteger a vida e garantir
@@ -192,7 +184,6 @@ coordenação federativa e acompanhamento público.
 segurança.
 4.5 Sistema prisional e redução da reincidência
 
-
 Página 10
 Objetivo. Transformar o eixo em uma agenda executável, com responsabilidades claras,
 coordenação federativa e acompanhamento público.
@@ -201,7 +192,6 @@ coordenação federativa e acompanhamento público.
  • Inteligência penitenciária e controle de comunicações ilícitas
  Indicadores sugeridos: reincidência; presos em educação/trabalho; incidentes; apreensões e comunicações
 ilícitas detectadas.
-
 
 Página 11
 5. Saúde - cuidar antes da doença
@@ -240,14 +230,12 @@ coordenação federativa e acompanhamento público.
 Objetivo. Transformar o eixo em uma agenda executável, com responsabilidades claras,
 coordenação federativa e acompanhamento público.
 
-
 Página 12
 • Telemedicina integrada à rede
  • Regulação inteligente de filas
  • IA como apoio clínico e administrativo com governança, auditoria e privacidade
  Indicadores sugeridos: tempo de espera; teleatendimentos resolutivos; absenteísmo em consultas; segurança
 e qualidade dos sistemas.
-
 
 Página 13
 6. Estado que funciona
@@ -286,14 +274,12 @@ engajamento.
 Objetivo. Transformar o eixo em uma agenda executável, com responsabilidades claras,
 coordenação federativa e acompanhamento público.
 
-
 Página 14
 • Pactos com estados e municípios
  • Transferências associadas a indicadores quando juridicamente cabível
  • Consórcios e compartilhamento de soluções
  Indicadores sugeridos: adesão federativa; metas compartilhadas; custo por serviço; redução de desigualdades
 regionais.
-
 
 Página 15
 Matriz de implementação

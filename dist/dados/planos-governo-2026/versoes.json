@@ -1,0 +1,131 @@
+{
+  "candidatos": {
+    "Augusto Cury": [
+      {
+        "sha256": "fc0872d2b68aad863c8d62575323cf413a616b23d0f7ca4fd7f4558112c07b38",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 200,
+        "arquivoOrigem": "BR/2026BR280002551547_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Clariana Barão": [
+      {
+        "sha256": "6390152c66285558ecd5459f4f73f3f65650beb77022b14e7750190b1b536d68",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 15,
+        "arquivoOrigem": "BR/2026BR280002552484_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Edmilson Costa": [
+      {
+        "sha256": "52f765533f93409a595d780e9ad8634de72db8f05794a2e70e808913c2ed4dff",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 16,
+        "arquivoOrigem": "BR/2026BR280002551975_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Flávio Bolsonaro": [
+      {
+        "sha256": "7d1d95075e11e3c4113e8dcd502438049a34f5147a84cb0f746bf59046e477a4",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 76,
+        "arquivoOrigem": "BR/2026BR280002551544_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Hertz Dias": [
+      {
+        "sha256": "1868565fb0d5de77d40a982a1be07dc7f44f7af7565ee3b40d93b31407d31468",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 33,
+        "arquivoOrigem": "BR/2026BR280002541457_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Luiz Inácio Lula da Silva": [
+      {
+        "sha256": "e1c162c20c81dafadf69b10bab230b5a6dc48f6b6c27c2cfce853b131a8bcc36",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 84,
+        "arquivoOrigem": "BR/2026BR280002542548_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Renan Santos": [
+      {
+        "sha256": "cdece60b71117c7820dbf90a7d795f76f3b1d1aaa5ebb8ce11f47e9ca6227b5a",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 51,
+        "arquivoOrigem": "BR/2026BR280002540694_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Ronaldo Caiado": [
+      {
+        "sha256": "b0ba46eb58d1827c99167a0df60e539b6bfa8a70fa247e4653ba2fcca8ade415",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 100,
+        "arquivoOrigem": "BR/2026BR280002551932_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Romeu Zema": [
+      {
+        "sha256": "5a5804622017a8e9c123fb64540a5ee3d06009de681026b505bc2a152d5e646e",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 81,
+        "arquivoOrigem": "BR/2026BR280002539826_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Rui Costa Pimenta": [
+      {
+        "sha256": "ed380b23d6e033e8616ce71efcf66eb42d2baee2b58f1c9ae80690009c20dfe9",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 7,
+        "arquivoOrigem": "BR/2026BR280002552487_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Samara Martins": [
+      {
+        "sha256": "23c510d5b06bb149bb9390bbc144dcda9cfd2b6a677a854b3d993b16ed7a94e6",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 67,
+        "arquivoOrigem": "BR/2026BR280002538811_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Wilson Grassi": [
+      {
+        "sha256": "df2acdb7a6d8b080d6d8a235b8fe8f0d987bf0f24be4f4aa9abc80e4ebb24904",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 58,
+        "arquivoOrigem": "BR/2026BR280002548139_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Leonardo Avalanche": [
+      {
+        "sha256": "6956c95e514dded0fc45355c0347f860fd97dc06fbf2886fe24627106ec05053",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 48,
+        "arquivoOrigem": "BR/2026BR280002554479_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ],
+    "Pablo Marçal": [
+      {
+        "sha256": "0159b1f854deec5ec1fe9d28784807353bd61c249680ddaa143b9891b034f33d",
+        "detectadoEm": "2026-09-17T17:10:10.209957+00:00",
+        "paginas": 28,
+        "arquivoOrigem": "BR/2026BR280002553884_01.pdf",
+        "alteracoesDesdeAnterior": null
+      }
+    ]
+  },
+  "atualizadoEm": "2026-09-17T17:10:10.209957+00:00"
+}

@@ -8,7 +8,6 @@ Livro Amarelo
 Partido Missão
 Brasil 2026
 
-
 LIVRO AMARELO - MISSÃO 2026
 2
   SUMÁRIO
@@ -225,7 +224,7 @@ Para concretizar essa nova trajetória, é preciso também que desenvolvamos pro
 vos (moonshots) que simbolizem verdadeiras viradas de chave, para além das melhorias incrementais. Esses 
 são os temas da parte 3, “País do Futuro”, nossa tentativa de realizar a ambição profetizada pelo austríaco 
 Stefan Zweig, que cunhou essa expressão ainda nos anos de 1940. Para que o futuro do Brasil finalmente 
-chegue, é preciso desenvolver o Norte e Nordeste, tema do capítulo “O Nordeste é Solução”, que elabora o 
+chegue, é preciso desenvolver o Norte e Nordeste, tema do capítulo “O Nordeste é Solução”, que elabora o
 
 LIVRO AMARELO - MISSÃO 2026
 7
@@ -270,7 +269,6 @@ I     UM REMÉDIO AMARGO   AJUSTE FISCAL
 II    PRENDEU, MATOU?   SEGURANÇA PÚBLICA
 III   QUEM PAGA A BANDA...   PACTO FEDERATIVO
 IV   ESCOLHE A MÚSICA   LEI DE RESPONSABILIDADE GERENCIAL
- 
 
 LIVRO AMARELO - MISSÃO 2026
 9
@@ -344,7 +342,6 @@ e da cultura, e a elevação do Brasil para a posição de uma das cinco naçõe
 longo das próximas décadas.
 Esse primeiro capítulo detalha o remédio amargo, item por item, explicando o que pretendemos fazer 
 para salvar a débil situação fiscal do país.
-
 
 LIVRO AMARELO - MISSÃO 2026
 11
@@ -548,7 +545,6 @@ tuídas no capítulo seguinte.
 LIVRO AMARELO - MISSÃO 2026
 16
 
-
 LIVRO AMARELO - MISSÃO 2026
 17
 ESCOLHE A MÚSICA
@@ -637,7 +633,6 @@ VI    MISSÃO RONDON     INFRAESTRUTURA
 VII   SUS FILA ZERO   SAÚDE
 VIII  CHEGA DE SAUDADE   CULTURA
 IX    FORMAR ELITES, CULTIVAR O POVO   EDUCAÇÃO
- 
 
 LIVRO AMARELO - MISSÃO 2026
 20
@@ -659,7 +654,6 @@ Nesse modelo, ainda que a carga horária dos brasileiros em emprego formal seja 
 a de países já desenvolvidos, o esforço não se converte em riqueza proporcional ao potencial da nossa popu -
 lação e território.
 CAPÍTULO V   ECONOMIA E ASSISTENCIALISMO
-
 
 LIVRO AMARELO - MISSÃO 2026
 21
@@ -1096,7 +1090,6 @@ XI     CUM MENTE ET MALLEO   TERRAS RARAS E INDÚSTRIA
 XII    CELEIRO DO MUNDO   AGRICULTURA E TECNOLOGIA 
 XIII   BRASIL PODEROSO   POLÍTICA EXTERNA
 XIV   A BATALHA DO BRASIL    DESFAVELIZAÇÃO
- 
 
 LIVRO AMARELO - MISSÃO 2026
 34
@@ -1282,7 +1275,7 @@ O objetivo deste capítulo é apresentar um modelo de parcerias estratégicas es
 de cooperação, cada qual conferindo ao Brasil benefícios específicos e complementares. Em um trabalho 
 conjunto com professores de grandes universidades e uma equipe comprometida, desenvolvemos um plano 
 de ação em favor de nossa soberania. No primeiro escalão, os Estados Unidos e a União Europeia constituem 
-os parceiros prioritários, responsáveis por fornecer infraestrutura crítica, tecnologia de processamento limpo 
+os parceiros prioritários, responsáveis por fornecer infraestrutura crítica, tecnologia de processamento limpo
 
 LIVRO AMARELO - MISSÃO 2026
 39

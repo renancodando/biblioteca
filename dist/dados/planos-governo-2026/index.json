@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-09-17T16:51:46.279641+00:00",
+  "geradoEm": "2026-09-17T17:10:10.209957+00:00",
   "fonte": "Tribunal Superior Eleitoral - Portal de Dados Abertos",
   "pacoteOficial": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip",
   "pdfUnico": "/documentos/planos-governo-2026-presidencia.pdf",
@@ -11,6 +11,9 @@
       "arquivo_origem": "BR/2026BR280002551547_01.pdf",
       "paginas": 200,
       "texto": "/dados/planos-governo-2026/augusto-cury.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/augusto-cury.json",
+      "pdf": "/documentos/planos-governo-2026/augusto-cury.pdf",
+      "sha256": "fc0872d2b68aad863c8d62575323cf413a616b23d0f7ca4fd7f4558112c07b38",
       "erro": null
     },
     {
@@ -19,6 +22,9 @@
       "arquivo_origem": "BR/2026BR280002552484_01.pdf",
       "paginas": 15,
       "texto": "/dados/planos-governo-2026/clariana-barao.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/clariana-barao.json",
+      "pdf": "/documentos/planos-governo-2026/clariana-barao.pdf",
+      "sha256": "6390152c66285558ecd5459f4f73f3f65650beb77022b14e7750190b1b536d68",
       "erro": null
     },
     {
@@ -27,6 +33,9 @@
       "arquivo_origem": "BR/2026BR280002551975_01.pdf",
       "paginas": 16,
       "texto": "/dados/planos-governo-2026/edmilson-costa.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/edmilson-costa.json",
+      "pdf": "/documentos/planos-governo-2026/edmilson-costa.pdf",
+      "sha256": "52f765533f93409a595d780e9ad8634de72db8f05794a2e70e808913c2ed4dff",
       "erro": null
     },
     {
@@ -35,6 +44,9 @@
       "arquivo_origem": "BR/2026BR280002551544_01.pdf",
       "paginas": 76,
       "texto": "/dados/planos-governo-2026/flavio-bolsonaro.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/flavio-bolsonaro.json",
+      "pdf": "/documentos/planos-governo-2026/flavio-bolsonaro.pdf",
+      "sha256": "7d1d95075e11e3c4113e8dcd502438049a34f5147a84cb0f746bf59046e477a4",
       "erro": null
     },
     {
@@ -43,6 +55,9 @@
       "arquivo_origem": "BR/2026BR280002541457_01.pdf",
       "paginas": 33,
       "texto": "/dados/planos-governo-2026/hertz-dias.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/hertz-dias.json",
+      "pdf": "/documentos/planos-governo-2026/hertz-dias.pdf",
+      "sha256": "1868565fb0d5de77d40a982a1be07dc7f44f7af7565ee3b40d93b31407d31468",
       "erro": null
     },
     {
@@ -51,6 +66,9 @@
       "arquivo_origem": "BR/2026BR280002542548_01.pdf",
       "paginas": 84,
       "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva.json",
+      "pdf": "/documentos/planos-governo-2026/luiz-inacio-lula-da-silva.pdf",
+      "sha256": "e1c162c20c81dafadf69b10bab230b5a6dc48f6b6c27c2cfce853b131a8bcc36",
       "erro": null
     },
     {
@@ -59,6 +77,9 @@
       "arquivo_origem": "BR/2026BR280002540694_01.pdf",
       "paginas": 51,
       "texto": "/dados/planos-governo-2026/renan-santos.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/renan-santos.json",
+      "pdf": "/documentos/planos-governo-2026/renan-santos.pdf",
+      "sha256": "cdece60b71117c7820dbf90a7d795f76f3b1d1aaa5ebb8ce11f47e9ca6227b5a",
       "erro": null
     },
     {
@@ -67,6 +88,9 @@
       "arquivo_origem": "BR/2026BR280002551932_01.pdf",
       "paginas": 100,
       "texto": "/dados/planos-governo-2026/ronaldo-caiado.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/ronaldo-caiado.json",
+      "pdf": "/documentos/planos-governo-2026/ronaldo-caiado.pdf",
+      "sha256": "b0ba46eb58d1827c99167a0df60e539b6bfa8a70fa247e4653ba2fcca8ade415",
       "erro": null
     },
     {
@@ -75,6 +99,9 @@
       "arquivo_origem": "BR/2026BR280002539826_01.pdf",
       "paginas": 81,
       "texto": "/dados/planos-governo-2026/romeu-zema.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/romeu-zema.json",
+      "pdf": "/documentos/planos-governo-2026/romeu-zema.pdf",
+      "sha256": "5a5804622017a8e9c123fb64540a5ee3d06009de681026b505bc2a152d5e646e",
       "erro": null
     },
     {
@@ -83,6 +110,9 @@
       "arquivo_origem": "BR/2026BR280002552487_01.pdf",
       "paginas": 7,
       "texto": "/dados/planos-governo-2026/rui-costa-pimenta.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/rui-costa-pimenta.json",
+      "pdf": "/documentos/planos-governo-2026/rui-costa-pimenta.pdf",
+      "sha256": "ed380b23d6e033e8616ce71efcf66eb42d2baee2b58f1c9ae80690009c20dfe9",
       "erro": null
     },
     {
@@ -91,6 +121,9 @@
       "arquivo_origem": "BR/2026BR280002538811_01.pdf",
       "paginas": 67,
       "texto": "/dados/planos-governo-2026/samara-martins.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/samara-martins.json",
+      "pdf": "/documentos/planos-governo-2026/samara-martins.pdf",
+      "sha256": "23c510d5b06bb149bb9390bbc144dcda9cfd2b6a677a854b3d993b16ed7a94e6",
       "erro": null
     },
     {
@@ -99,6 +132,9 @@
       "arquivo_origem": "BR/2026BR280002548139_01.pdf",
       "paginas": 58,
       "texto": "/dados/planos-governo-2026/wilson-grassi.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/wilson-grassi.json",
+      "pdf": "/documentos/planos-governo-2026/wilson-grassi.pdf",
+      "sha256": "df2acdb7a6d8b080d6d8a235b8fe8f0d987bf0f24be4f4aa9abc80e4ebb24904",
       "erro": null
     }
   ],
@@ -109,6 +145,9 @@
       "arquivo_origem": "BR/2026BR280002554479_01.pdf",
       "paginas": 48,
       "texto": "/dados/planos-governo-2026/leonardo-avalanche.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/leonardo-avalanche.json",
+      "pdf": "/documentos/planos-governo-2026/leonardo-avalanche.pdf",
+      "sha256": "6956c95e514dded0fc45355c0347f860fd97dc06fbf2886fe24627106ec05053",
       "erro": null
     },
     {
@@ -117,7 +156,11 @@
       "arquivo_origem": "BR/2026BR280002553884_01.pdf",
       "paginas": 28,
       "texto": "/dados/planos-governo-2026/pablo-marcal.txt",
+      "dadosPaginas": "/dados/planos-governo-2026/pablo-marcal.json",
+      "pdf": "/documentos/planos-governo-2026/pablo-marcal.pdf",
+      "sha256": "0159b1f854deec5ec1fe9d28784807353bd61c249680ddaa143b9891b034f33d",
       "erro": null
     }
-  ]
+  ],
+  "historicoVersoes": "/dados/planos-governo-2026/versoes.json"
 }
