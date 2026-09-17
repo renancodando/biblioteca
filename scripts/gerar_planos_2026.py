@@ -4,8 +4,8 @@ import io
 import json
 import re
 import shutil
+import subprocess
 import unicodedata
-import urllib.request
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -15,6 +15,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 
 URL = "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip"
+PORTAL = "https://dadosabertos.tse.jus.br/dataset/candidatos-2026"
 ROOT = Path(__file__).resolve().parents[1]
 OUT_PDF = ROOT / "dist" / "documentos" / "planos-governo-2026-presidencia.pdf"
 OUT_TEXT = ROOT / "dist" / "dados" / "planos-governo-2026"
@@ -58,9 +59,42 @@ def identificar(texto: str, nome_arquivo: str) -> str:
 
 
 def baixar_zip(destino: Path) -> None:
-    req = urllib.request.Request(URL, headers={"User-Agent": "BibliotecaLivre/1.0"})
-    with urllib.request.urlopen(req, timeout=120) as resposta, destino.open("wb") as saida:
-        shutil.copyfileobj(resposta, saida)
+    cookies = TMP / "cookies.txt"
+    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+    subprocess.run([
+        "curl", "-sS", "-L", "--compressed",
+        "-A", user_agent,
+        "-c", str(cookies),
+        "-o", "/dev/null",
+        PORTAL,
+    ], check=True)
+    tentativas = [
+        URL,
+        "https://dadosabertos.tse.jus.br/dataset/candidatos-2026/resource/433ac1f4-07dc-44a2-bcbe-c87a2073721a/download/proposta_governo_2026_BR.zip",
+        "https://dadosabertos.tse.jus.br/dataset/candidatos-2026/resource/433ac1f4-07dc-44a2-bcbe-c87a2073721a/download/",
+    ]
+    ultimo_erro = None
+    for url in tentativas:
+        try:
+            subprocess.run([
+                "curl", "-sS", "-L", "--fail", "--retry", "3", "--retry-all-errors", "--compressed",
+                "-A", user_agent,
+                "-e", PORTAL,
+                "-b", str(cookies),
+                "-H", "Accept: application/zip,application/octet-stream;q=0.9,*/*;q=0.8",
+                "-H", "Accept-Language: pt-BR,pt;q=0.9,en;q=0.8",
+                "-H", "Sec-Fetch-Dest: document",
+                "-H", "Sec-Fetch-Mode: navigate",
+                "-H", "Sec-Fetch-Site: same-site",
+                "-o", str(destino),
+                url,
+            ], check=True)
+            if destino.exists() and destino.stat().st_size > 1000 and destino.read_bytes()[:2] == b"PK":
+                return
+        except Exception as exc:
+            ultimo_erro = exc
+        destino.unlink(missing_ok=True)
+    raise RuntimeError(f"Nao foi possivel baixar o pacote do TSE: {ultimo_erro}")
 
 
 def extrair_texto(reader: PdfReader) -> str:
