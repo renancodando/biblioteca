@@ -1,0 +1,113 @@
+{
+  "geradoEm": "2026-09-17T16:47:52.799411+00:00",
+  "fonte": "Tribunal Superior Eleitoral - Portal de Dados Abertos",
+  "pacoteOficial": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip",
+  "pdfUnico": "/documentos/planos-governo-2026-presidencia.pdf",
+  "documentos": [
+    {
+      "candidato": "Augusto Cury",
+      "arquivo_origem": "BR/2026BR280002551547_01.pdf",
+      "paginas": 200,
+      "texto": "/dados/planos-governo-2026/augusto-cury.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Edmilson Costa",
+      "arquivo_origem": "BR/2026BR280002551975_01.pdf",
+      "paginas": 16,
+      "texto": "/dados/planos-governo-2026/edmilson-costa.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Flávio Bolsonaro",
+      "arquivo_origem": "BR/2026BR280002541457_01.pdf",
+      "paginas": 33,
+      "texto": "/dados/planos-governo-2026/flavio-bolsonaro.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Luiz Inácio Lula da Silva",
+      "arquivo_origem": "BR/2026BR280002540694_01.pdf",
+      "paginas": 51,
+      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Luiz Inácio Lula da Silva",
+      "arquivo_origem": "BR/2026BR280002542548_01.pdf",
+      "paginas": 84,
+      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva-2.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Luiz Inácio Lula da Silva",
+      "arquivo_origem": "BR/2026BR280002552487_01.pdf",
+      "paginas": 7,
+      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva-3.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Luiz Inácio Lula da Silva",
+      "arquivo_origem": "BR/2026BR280002553884_01.pdf",
+      "paginas": 28,
+      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva-4.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Luiz Inácio Lula da Silva",
+      "arquivo_origem": "BR/2026BR280002554479_01.pdf",
+      "paginas": 48,
+      "texto": "/dados/planos-governo-2026/luiz-inacio-lula-da-silva-5.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Ronaldo Caiado",
+      "arquivo_origem": "BR/2026BR280002551932_01.pdf",
+      "paginas": 100,
+      "texto": "/dados/planos-governo-2026/ronaldo-caiado.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Romeu Zema",
+      "arquivo_origem": "BR/2026BR280002539826_01.pdf",
+      "paginas": 81,
+      "texto": "/dados/planos-governo-2026/romeu-zema.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Samara Martins",
+      "arquivo_origem": "BR/2026BR280002538811_01.pdf",
+      "paginas": 67,
+      "texto": "/dados/planos-governo-2026/samara-martins.txt",
+      "erro": null
+    },
+    {
+      "candidato": "Wilson Grassi",
+      "arquivo_origem": "BR/2026BR280002548139_01.pdf",
+      "paginas": 58,
+      "texto": "/dados/planos-governo-2026/wilson-grassi.txt",
+      "erro": null
+    },
+    {
+      "candidato": "2026BR280002551544_01",
+      "arquivo_origem": "BR/2026BR280002551544_01.pdf",
+      "paginas": 76,
+      "texto": "/dados/planos-governo-2026/2026br280002551544-01.txt",
+      "erro": null
+    },
+    {
+      "candidato": "2026BR280002552484_01",
+      "arquivo_origem": "BR/2026BR280002552484_01.pdf",
+      "paginas": 15,
+      "texto": "/dados/planos-governo-2026/2026br280002552484-01.txt",
+      "erro": null
+    },
+    {
+      "candidato": "leiame",
+      "arquivo_origem": "BR/leiame.pdf",
+      "paginas": 1,
+      "texto": "/dados/planos-governo-2026/leiame.txt",
+      "erro": null
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+Página 1 
+ 
+LEIAME 
+ 
+Este arquivo .ZIP contém os arquivos em .PDF com as propostas de governo enviadas pelos 
+candidatos. 
+Antes de trabalhar os arquivos é importante ler as seguintes considerações:  
+ 
+O nome do arquivo é composto por YYYYUFNNNNNNNN
+_NN.PDF, onde: 
+ 
+- YYYY: Ano da eleição 
+- UF: Unidade Federativa da Candidatura sendo que: 
+o BR: quando se tratar de informação em nível nacional 
+- NNNNNNNN: Número sequencial do candidato 
+(SQ
+_CANDIDATO
+), sendo que: 
+o Número sequencial do candidato, gerado internamente pelos sistemas eleitorais 
+para cada eleição. 
+o Observações: 
+- Este sequencial pode ser utilizado como chave para o cruzamento de dados. 
+- Não é o número de campanha do candidato. 
+- NN: Número sequencial do documento anexado pelo candidato. O candidato pode anexar mais de 
+um documento com a proposta de governo. 
+o Exemplos: se o candidato anexar apenas um documento com a proposta de governo, o 
+final do nome do arquivo é 
+_01.pdf. Se anexar três documentos, temos três arquivos com 
+as terminologias 
+_01.pdf, 02.pdf e 
+_03.pdf. 
+- PDF: Extensão do arquivo gerado 
+ 
+Agradecemos todas as críticas e sugestões recebidas de pesquisadores e usuários que estão 
+colaborando para a melhoria na qualidade da prestação das informações. Em especial à 
+Associação Brasileira de Ciência Política 
+( ABCP
+) , que por meio de acordo de cooperação 
+técnica firmado com o TSE está auxiliando na verificação dos arquivos gerados e informando o 
+TSE quanto às necessidades de dados dos pesquisadores. 
+ 
+Qualquer sugestão ou dúvida deve ser encaminhada ao e-mail estatistica@tse.jus.br.
