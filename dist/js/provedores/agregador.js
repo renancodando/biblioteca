@@ -17,7 +17,8 @@ import{pesquisarCrossref}from'./crossref.js';
 import{pesquisarCore}from'./core.js';
 import{pesquisarSemanticScholar}from'./semantic-scholar.js';
 import{pesquisarEuropeana}from'./europeana.js';
-import{pesquisarDigitalNz,pesquisarTrove,pesquisarOpenTextbook,pesquisarOpenStax,pesquisarZenodo,pesquisarHal,pesquisarOpenAlex,pesquisarWikidata}from'./fontes-novas.js';
+import{pesquisarDigitalNz,pesquisarTrove,pesquisarOpenTextbook,pesquisarOpenStax,pesquisarZenodo,pesquisarHal,pesquisarWikidata}from'./fontes-novas.js';
+import{pesquisarOpenAlexPdf}from'./openalex-pdf.js';
 import{pesquisarPressbooks}from'./pressbooks.js';
 import{pesquisarOpenAire}from'./openaire.js';
 import{pesquisarDataCite}from'./datacite.js';
@@ -26,10 +27,11 @@ import{pesquisarScieloLivros}from'./scielo-livros.js';
 import{normalizarTexto,pontuarCorrespondencia}from'./comum.js';
 export const normalizar=normalizarTexto;
 export const fontesCatalogo=[
- {id:'gutenberg',nome:'Project Gutenberg',pesquisar:pesquisarGutendex,prazo:5800,atraso:0},
- {id:'openlibrary',nome:'Open Library',pesquisar:pesquisarOpenLibrary,prazo:5800,atraso:0},
- {id:'google',nome:'Google Books',pesquisar:pesquisarGoogleBooks,prazo:6200,atraso:0},
- {id:'wikisource',nome:'Wikisource',pesquisar:pesquisarWikisource,prazo:6200,atraso:0},
+ {id:'openalex',nome:'OpenAlex · PDFs abertos',pesquisar:pesquisarOpenAlexPdf,prazo:15000,atraso:0},
+ {id:'gutenberg',nome:'Project Gutenberg',pesquisar:pesquisarGutendex,prazo:5800,atraso:20},
+ {id:'openlibrary',nome:'Open Library',pesquisar:pesquisarOpenLibrary,prazo:5800,atraso:20},
+ {id:'google',nome:'Google Books',pesquisar:pesquisarGoogleBooks,prazo:6200,atraso:40},
+ {id:'wikisource',nome:'Wikisource',pesquisar:pesquisarWikisource,prazo:6200,atraso:40},
  {id:'archive',nome:'Internet Archive',pesquisar:pesquisarInternetArchive,prazo:6500,atraso:80},
  {id:'europepmc',nome:'Europe PMC',pesquisar:pesquisarEuropePmc,prazo:6500,atraso:80},
  {id:'eric',nome:'ERIC · Educação',pesquisar:pesquisarEric,prazo:6500,atraso:100},
@@ -56,7 +58,6 @@ export const fontesCatalogo=[
  {id:'pressbooks',nome:'Pressbooks Directory',pesquisar:pesquisarPressbooks,prazo:12500,atraso:540},
  {id:'zenodo',nome:'Zenodo',pesquisar:pesquisarZenodo,prazo:14500,atraso:560},
  {id:'hal',nome:'HAL',pesquisar:pesquisarHal,prazo:12500,atraso:580},
- {id:'openalex',nome:'OpenAlex',pesquisar:pesquisarOpenAlex,prazo:12500,atraso:600},
  {id:'openaire',nome:'OpenAIRE',pesquisar:pesquisarOpenAire,prazo:15500,atraso:610},
  {id:'datacite',nome:'DataCite',pesquisar:pesquisarDataCite,prazo:15500,atraso:615},
  {id:'wikidata',nome:'Wikidata',pesquisar:pesquisarWikidata,prazo:10500,atraso:620}
