@@ -2,8 +2,13 @@ const estilo=document.createElement('link');
 estilo.rel='stylesheet';
 estilo.href='/css/experiencias.css?v=20260917x1';
 document.head.append(estilo);
+const estiloObservatorio=document.createElement('link');
+estiloObservatorio.rel='stylesheet';
+estiloObservatorio.href='/css/observatorio-politico.css?v=20260917p1';
+document.head.append(estiloObservatorio);
 import './constelacao.js';
 import './lingua-viva.js';
+import './observatorio-politico.js';
 
 function marcarConstelacaoEmTestes(){
  const botao=document.querySelector('#abrir-constelacao');
