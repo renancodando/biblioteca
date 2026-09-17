@@ -7,6 +7,8 @@ export default function handler(req,res){
     fontesAbertas:['Project Gutenberg','Open Library','Google Books','Wikisource','Internet Archive','OAPEN','DOAB','SciELO Livros','Europe PMC','ERIC','NCBI Bookshelf','arXiv','DOAJ','Wikibooks','Wikiversidade','Library of Congress','Gallica · BnF','Biblioteca Nacional Digital','DPLA','Crossref','CORE','Semantic Scholar','Europeana','DigitalNZ','Trove','Open Textbook Library','OpenStax','Pressbooks Directory','Zenodo','HAL','OpenAlex','OpenAIRE','DataCite','Unpaywall','Wikidata'],
     fontesPesquisaveis:34,
     enriquecedores:['Unpaywall'],
+    idiomasFontes:24,
+    bloomLibraryConfigured:Boolean(process.env.BLOOM_LIBRARY_ACCOUNT&&process.env.BLOOM_LIBRARY_API_KEY),
     googleBooksKeyConfigured:Boolean(process.env.GOOGLE_BOOKS_API_KEY),
     dplaKeyConfigured:Boolean(process.env.DPLA_API_KEY),
     coreKeyConfigured:Boolean(process.env.CORE_API_KEY),
