@@ -23,19 +23,36 @@ OUT_INDEX = OUT_TEXT / "index.json"
 TMP = ROOT / ".tmp-planos-2026"
 
 CANDIDATOS = [
-    ("Augusto Cury", ["augusto cury", "augusto jorge cury"]),
-    ("Clariana Barão", ["clariana barao", "clariana zacarkim barao"]),
-    ("Edmilson Costa", ["edmilson costa"]),
-    ("Flávio Bolsonaro", ["flavio bolsonaro", "flavio nantes bolsonaro"]),
-    ("Hertz Dias", ["hertz dias", "hertz da conceicao dias"]),
-    ("Luiz Inácio Lula da Silva", ["luiz inacio lula da silva", "lula"]),
-    ("Renan Santos", ["renan santos", "renan antonio ferreira dos santos"]),
-    ("Ronaldo Caiado", ["ronaldo caiado"]),
-    ("Romeu Zema", ["romeu zema", "romeu zema neto"]),
-    ("Rui Costa Pimenta", ["rui costa pimenta"]),
-    ("Samara Martins", ["samara martins", "samara martins da silva feitosa"]),
-    ("Wilson Grassi", ["wilson grassi", "wilson grassi junior"]),
+    "Augusto Cury",
+    "Clariana Barão",
+    "Edmilson Costa",
+    "Flávio Bolsonaro",
+    "Hertz Dias",
+    "Luiz Inácio Lula da Silva",
+    "Renan Santos",
+    "Ronaldo Caiado",
+    "Romeu Zema",
+    "Rui Costa Pimenta",
+    "Samara Martins",
+    "Wilson Grassi",
 ]
+
+MAPA_ARQUIVOS = {
+    "2026BR280002551547_01.pdf": ("Augusto Cury", "candidatura-validada"),
+    "2026BR280002552484_01.pdf": ("Clariana Barão", "candidatura-validada"),
+    "2026BR280002551975_01.pdf": ("Edmilson Costa", "candidatura-validada"),
+    "2026BR280002551544_01.pdf": ("Flávio Bolsonaro", "candidatura-validada"),
+    "2026BR280002541457_01.pdf": ("Hertz Dias", "candidatura-validada"),
+    "2026BR280002542548_01.pdf": ("Luiz Inácio Lula da Silva", "candidatura-validada"),
+    "2026BR280002540694_01.pdf": ("Renan Santos", "candidatura-validada"),
+    "2026BR280002551932_01.pdf": ("Ronaldo Caiado", "candidatura-validada"),
+    "2026BR280002539826_01.pdf": ("Romeu Zema", "candidatura-validada"),
+    "2026BR280002552487_01.pdf": ("Rui Costa Pimenta", "candidatura-validada"),
+    "2026BR280002538811_01.pdf": ("Samara Martins", "candidatura-validada"),
+    "2026BR280002548139_01.pdf": ("Wilson Grassi", "candidatura-validada"),
+    "2026BR280002553884_01.pdf": ("Pablo Marçal", "registro-adicional"),
+    "2026BR280002554479_01.pdf": ("Leonardo Avalanche", "registro-adicional"),
+}
 
 
 def normalizar(texto: str) -> str:
@@ -50,12 +67,11 @@ def slug(texto: str) -> str:
     return normalizar(texto).replace(" ", "-") or "documento"
 
 
-def identificar(texto: str, nome_arquivo: str) -> str:
-    alvo = normalizar((texto[:30000] or "") + " " + nome_arquivo)
-    for nome, aliases in CANDIDATOS:
-        if any(normalizar(alias) in alvo for alias in aliases):
-            return nome
-    return Path(nome_arquivo).stem
+def identificar(nome_arquivo: str) -> tuple[str, str]:
+    base = Path(nome_arquivo).name
+    if base.lower() == "leiame.pdf":
+        return "Leia-me do TSE", "metadado"
+    return MAPA_ARQUIVOS.get(base, (Path(base).stem, "registro-nao-mapeado"))
 
 
 def baixar_zip(destino: Path) -> None:
@@ -110,7 +126,7 @@ def extrair_texto(reader: PdfReader) -> str:
 def capa_pdf(candidatos: list[str], gerado_em: str) -> bytes:
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=A4)
-    largura, altura = A4
+    _, altura = A4
     margem = 48
     y = altura - 64
     c.setFont("Helvetica-Bold", 18)
@@ -122,16 +138,15 @@ def capa_pdf(candidatos: list[str], gerado_em: str) -> bytes:
     c.drawString(margem, y, f"Pacote oficial: {URL}")
     y -= 14
     c.drawString(margem, y, f"Gerado em: {gerado_em}")
-    y -= 30
+    y -= 28
+    c.setFont("Helvetica-Bold", 10)
+    c.drawString(margem, y, "Recorte: 12 candidaturas presidenciais da lista consolidada do TSE.")
+    y -= 28
     c.setFont("Helvetica-Bold", 12)
     c.drawString(margem, y, "Documentos reunidos")
     y -= 18
     c.setFont("Helvetica", 10)
     for i, nome in enumerate(candidatos, 1):
-        if y < 60:
-            c.showPage()
-            y = altura - 60
-            c.setFont("Helvetica", 10)
         c.drawString(margem, y, f"{i}. {nome}")
         y -= 16
     y -= 12
@@ -142,8 +157,8 @@ def capa_pdf(candidatos: list[str], gerado_em: str) -> bytes:
 
 
 def main() -> None:
-    if TMP.exists():
-        shutil.rmtree(TMP)
+    shutil.rmtree(TMP, ignore_errors=True)
+    shutil.rmtree(OUT_TEXT, ignore_errors=True)
     TMP.mkdir(parents=True)
     OUT_PDF.parent.mkdir(parents=True, exist_ok=True)
     OUT_TEXT.mkdir(parents=True, exist_ok=True)
@@ -160,6 +175,7 @@ def main() -> None:
     itens = []
     for nome_zip in nomes:
         caminho = TMP / "extraido" / nome_zip
+        candidato, classificacao = identificar(nome_zip)
         try:
             reader = PdfReader(str(caminho), strict=False)
             if reader.is_encrypted:
@@ -168,9 +184,9 @@ def main() -> None:
                 except Exception:
                     pass
             texto = extrair_texto(reader)
-            candidato = identificar(texto, nome_zip)
             itens.append({
                 "candidato": candidato,
+                "classificacao": classificacao,
                 "arquivo": str(caminho),
                 "arquivo_origem": nome_zip,
                 "paginas": len(reader.pages),
@@ -178,7 +194,8 @@ def main() -> None:
             })
         except Exception as exc:
             itens.append({
-                "candidato": Path(nome_zip).stem,
+                "candidato": candidato,
+                "classificacao": classificacao,
                 "arquivo": str(caminho),
                 "arquivo_origem": nome_zip,
                 "paginas": 0,
@@ -186,12 +203,15 @@ def main() -> None:
                 "erro": str(exc),
             })
 
-    ordem = {normalizar(nome): i for i, (nome, _) in enumerate(CANDIDATOS)}
-    itens.sort(key=lambda x: (ordem.get(normalizar(x["candidato"]), 999), normalizar(x["candidato"]), x["arquivo_origem"]))
+    ordem = {normalizar(nome): i for i, nome in enumerate(CANDIDATOS)}
+    itens.sort(key=lambda x: (0 if x["classificacao"] == "candidatura-validada" else 1, ordem.get(normalizar(x["candidato"]), 999), normalizar(x["candidato"])))
 
     registros = []
+    extras = []
     usados = set()
     for item in itens:
+        if item["classificacao"] == "metadado":
+            continue
         base = slug(item["candidato"])
         nome_txt = base + ".txt"
         contador = 2
@@ -200,32 +220,40 @@ def main() -> None:
             contador += 1
         usados.add(nome_txt)
         (OUT_TEXT / nome_txt).write_text(item["texto"], encoding="utf-8")
-        registros.append({
+        reg = {
             "candidato": item["candidato"],
+            "classificacao": item["classificacao"],
             "arquivo_origem": item["arquivo_origem"],
             "paginas": item["paginas"],
             "texto": f"/dados/planos-governo-2026/{nome_txt}",
             "erro": item.get("erro"),
-        })
+        }
+        if item["classificacao"] == "candidatura-validada":
+            registros.append(reg)
+        else:
+            extras.append(reg)
+
+    faltantes = sorted(set(CANDIDATOS) - {x["candidato"] for x in registros})
+    if faltantes:
+        raise RuntimeError("Planos faltantes no pacote: " + ", ".join(faltantes))
 
     gerado_em = datetime.now(timezone.utc).isoformat()
     writer = PdfWriter()
-    capa = PdfReader(io.BytesIO(capa_pdf([x["candidato"] for x in itens], gerado_em)))
+    capa = PdfReader(io.BytesIO(capa_pdf([x["candidato"] for x in registros], gerado_em)))
     for pagina in capa.pages:
         writer.add_page(pagina)
 
-    for item in itens:
-        try:
-            reader = PdfReader(item["arquivo"], strict=False)
-            if reader.is_encrypted:
-                try:
-                    reader.decrypt("")
-                except Exception:
-                    continue
-            for pagina in reader.pages:
-                writer.add_page(pagina)
-        except Exception:
-            continue
+    validos_por_nome = {x["candidato"]: x for x in itens if x["classificacao"] == "candidatura-validada"}
+    for nome in CANDIDATOS:
+        item = validos_por_nome[nome]
+        reader = PdfReader(item["arquivo"], strict=False)
+        if reader.is_encrypted:
+            try:
+                reader.decrypt("")
+            except Exception:
+                continue
+        for pagina in reader.pages:
+            writer.add_page(pagina)
 
     with OUT_PDF.open("wb") as f:
         writer.write(f)
@@ -235,12 +263,15 @@ def main() -> None:
         "fonte": "Tribunal Superior Eleitoral - Portal de Dados Abertos",
         "pacoteOficial": URL,
         "pdfUnico": "/documentos/planos-governo-2026-presidencia.pdf",
+        "quantidadeCandidaturas": len(registros),
         "documentos": registros,
+        "registrosAdicionais": extras,
     }, ensure_ascii=False, indent=2), encoding="utf-8")
 
     shutil.rmtree(TMP, ignore_errors=True)
     print(f"PDF unico: {OUT_PDF}")
-    print(f"Documentos: {len(registros)}")
+    print(f"Candidaturas no PDF: {len(registros)}")
+    print(f"Registros adicionais fora do PDF: {len(extras)}")
 
 
 if __name__ == "__main__":
