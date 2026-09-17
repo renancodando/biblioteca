@@ -1,0 +1,24 @@
+name: Teste temporário dossiê eleitoral
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/teste-dossie-temporario.yml'
+
+jobs:
+  sintaxe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validar sintaxe dos módulos
+        run: |
+          node --check api/observatorio-politico.js
+          node --check dist/js/dossie-eleitoral-2026.js
+          node --check dist/js/dossie-eleitoral-integracao.js
+          node --check dist/js/analise-juridica-2026-extra.js
+          node --check dist/js/eleicoes-2026.js
+          node --check dist/js/experiencias.js
