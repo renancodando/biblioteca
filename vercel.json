@@ -4,6 +4,12 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/status",
+      "destination": "/status.json"
+    }
+  ],
   "functions": {
     "api/**/*.js": {
       "maxDuration": 20
