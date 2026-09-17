@@ -7,9 +7,9 @@ const carregarEstilo=(href)=>{
  document.head.append(link);
 };
 
-carregarEstilo('/css/experiencias.css?v=20260917x4');
-carregarEstilo('/css/observatorio-politico.css?v=20260917p4');
-carregarEstilo('/css/correcao-lateral.css?v=20260917l4');
+carregarEstilo('/css/experiencias.css?v=20260917x5');
+carregarEstilo('/css/observatorio-politico.css?v=20260917p5');
+carregarEstilo('/css/correcao-lateral.css?v=20260917l5');
 
 async function carregarModulo(caminho,nome){
  try{
@@ -41,9 +41,9 @@ marcarConstelacaoEmTestes();
 new MutationObserver(marcarConstelacaoEmTestes).observe(document.body,{childList:true,subtree:true});
 
 Promise.allSettled([
- carregarModulo('./constelacao.js?v=20260917c4','Constelação de Livros'),
- carregarModulo('./lingua-viva.js?v=20260917v4','Ouça uma Língua Viva'),
- carregarModulo('./observatorio-politico.js?v=20260917p4','Observatório Político'),
- carregarModulo('./eleicoes-2026.js?v=20260917e2','Central Eleições 2026'),
- carregarModulo('./presidencia.js?v=20260917pr2','Dossiê documental da Presidência')
+ carregarModulo('./constelacao.js?v=20260917c5','Constelação de Livros'),
+ carregarModulo('./lingua-viva.js?v=20260917v5','Ouça uma Língua Viva'),
+ carregarModulo('./observatorio-politico.js?v=20260917p5','Observatório Político'),
+ carregarModulo('./eleicoes-2026.js?v=20260917e3','Central Eleições 2026'),
+ carregarModulo('./presidencia.js?v=20260917pr3','Dossiê documental da Presidência')
 ]);
