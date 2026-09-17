@@ -3,6 +3,11 @@ const carregados=new Map();
 const esperar=ms=>new Promise(r=>setTimeout(r,ms));
 const raf2=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
 
+function estilo(href){
+ if([...document.querySelectorAll('link[rel="stylesheet"]')].some(x=>x.getAttribute('href')===href))return;
+ const l=document.createElement('link');l.rel='stylesheet';l.href=href;document.head.append(l);
+}
+
 async function importar(chave,caminho){
  if(carregados.has(chave))return carregados.get(chave);
  const p=import(caminho).catch(e=>{carregados.delete(chave);throw e});
@@ -15,14 +20,18 @@ async function fecharPainelAntes(){
  if(painel?.open){
   try{painel.close()}catch{}
   await raf2();
-  await esperar(70);
+  await esperar(55);
  }
 }
 
 async function garantir(tipo){
  if(tipo==='constelacao')return importar('constelacao','./constelacao.js?v=20260917c16');
- if(tipo==='observatorio')return importar('observatorio','./observatorio-politico.js?v=20260917p16');
+ if(tipo==='observatorio'){
+  estilo('/css/observatorio-politico.css?v=20260917p16');
+  return importar('observatorio','./observatorio-politico.js?v=20260917p16');
+ }
  if(tipo==='eleicoes'){
+  estilo('/css/observatorio-politico.css?v=20260917p16');
   await importar('observatorio','./observatorio-politico.js?v=20260917p16');
   await Promise.all([
    importar('eleicoes','./eleicoes-2026.js?v=20260917e13'),
@@ -33,6 +42,7 @@ async function garantir(tipo){
   return;
  }
  if(tipo==='presidencia'){
+  estilo('/css/observatorio-politico.css?v=20260917p16');
   await importar('observatorio','./observatorio-politico.js?v=20260917p16');
   await importar('presidencia','./presidencia.js?v=20260917pr13');
   await importar('presidencia-judicial','./presidencia-judicial-integracao.js?v=20260917pj8');
@@ -46,6 +56,7 @@ async function abrir(tipo,botao){
   await fecharPainelAntes();
   if(tipo==='idiomas'){
    document.querySelector('#abrir-idiomas')?.click();
+   setTimeout(()=>importar('lingua-viva','./lingua-viva.js?v=20260917v16'),50);
    return;
   }
   if(tipo==='matematica'){
@@ -61,7 +72,7 @@ async function abrir(tipo,botao){
   if(!obs)return;
   obs.click();
   if(tipo==='eleicoes'||tipo==='presidencia'){
-   await esperar(120);
+   await esperar(100);
    document.querySelector(`[data-obs-aba="${tipo==='eleicoes'?'eleicoes2026':'presidencia'}"]`)?.click();
   }
  }catch(e){
@@ -87,7 +98,6 @@ async function garantirManifesto(botao){
 }
 
 document.addEventListener('click',e=>{
- if(!mobile())return;
  const modulo=e.target.closest?.('[data-modulo-final]');
  if(modulo&&!modulo.dataset.lazyBypass){
   e.preventDefault();
@@ -108,12 +118,11 @@ function carregarDesktopOcioso(){
  const tarefa=async()=>{
   await Promise.allSettled([
    importar('constelacao','./constelacao.js?v=20260917c16'),
-   importar('observatorio','./observatorio-politico.js?v=20260917p16'),
    importar('manifesto-completo','./manifesto-final-completo.js?v=20260917mf8'),
    importar('manifesto-fecho','./manifesto-fecho.js?v=20260917mf9')
   ]);
  };
- if('requestIdleCallback'in window)requestIdleCallback(tarefa,{timeout:3500});else setTimeout(tarefa,1800);
+ if('requestIdleCallback'in window)requestIdleCallback(tarefa,{timeout:4500});else setTimeout(tarefa,2500);
 }
 
 carregarDesktopOcioso();
