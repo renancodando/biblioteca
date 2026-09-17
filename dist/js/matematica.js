@@ -34,10 +34,54 @@ const traducoes = [
   ['matematica para computacao','discrete mathematics computer science'],['matematica aplicada','applied mathematics']
 ];
 
+const nomesIdiomas = {
+  pt:'Português',por:'Português','pt-br':'Português','pt-pt':'Português',portuguese:'Português',
+  en:'Inglês',eng:'Inglês',english:'Inglês',
+  es:'Espanhol',spa:'Espanhol',spanish:'Espanhol',
+  fr:'Francês',fra:'Francês',fre:'Francês',french:'Francês',
+  de:'Alemão',deu:'Alemão',ger:'Alemão',german:'Alemão',
+  it:'Italiano',ita:'Italiano',italian:'Italiano'
+};
+
 function termoApi(q) {
   const n = semAcento(q);
   for (const [a, b] of traducoes) if (n.includes(a)) return b;
   return q;
+}
+
+function normalizarIdioma(v, fallback = 'Não informado') {
+  const valores = A(v).flatMap(x => {
+    if (typeof x === 'string') return [x];
+    if (!x || typeof x !== 'object') return [];
+    return [x.code, x.id, x.name, x.value, x.language].filter(Boolean);
+  });
+  for (const bruto of valores) {
+    const s = semAcento(bruto).trim();
+    if (!s) continue;
+    if (nomesIdiomas[s]) return nomesIdiomas[s];
+    if (s.startsWith('pt-') || s === 'portugues' || s.includes('portuguese')) return 'Português';
+    if (s.startsWith('en-') || s === 'ingles' || s.includes('english')) return 'Inglês';
+    if (s.startsWith('es-') || s === 'espanhol' || s.includes('spanish')) return 'Espanhol';
+    if (s.startsWith('fr-') || s === 'frances' || s.includes('french')) return 'Francês';
+    if (s.startsWith('de-') || s === 'alemao' || s.includes('german')) return 'Alemão';
+    if (s.startsWith('it-') || s === 'italiano' || s.includes('italian')) return 'Italiano';
+  }
+  return fallback;
+}
+
+function inferirIdiomaTexto(titulo, descricao = '', fallback = 'Não informado') {
+  const t = ` ${semAcento(`${titulo} ${descricao}`)} `;
+  const pt = [' matematica ',' algebra ',' calculo ',' geometria ',' estatistica ',' probabilidade ',' equacao ',' equacoes ',' funcoes ',' numeros ',' exercicios ',' introducao ',' teoria dos ',' livro ',' curso '];
+  const en = [' mathematics ',' algebra ',' calculus ',' geometry ',' statistics ',' probability ',' equation ',' equations ',' functions ',' numbers ',' exercises ',' introduction ',' theory of ',' textbook ',' course '];
+  const p = pt.filter(x => t.includes(x)).length;
+  const e = en.filter(x => t.includes(x)).length;
+  if (p > e && p > 0) return 'Português';
+  if (e > p && e > 0) return 'Inglês';
+  return fallback;
+}
+
+function prioridadeIdioma(x) {
+  return semAcento(x?.idioma) === 'portugues' ? 0 : 1;
 }
 
 async function carregarCatalogo() {
@@ -90,13 +134,17 @@ function locais(q) {
     const texto = semAcento([x.titulo, x.descricao, x.nivel, ...A(x.topicos)].join(' '));
     const partes = n.split(/\s+/).filter(Boolean);
     return texto.includes(n) || partes.every(p => texto.includes(p));
-  }).map(x => ({
-    ...x,
-    origem: 'curado',
-    provedor: x.fonte || 'Acervo curado',
-    url: linkSeguro(x.url),
-    peso: 0
-  }));
+  }).map(x => {
+    const idioma = normalizarIdioma(x.idioma || x.language, inferirIdiomaTexto(x.titulo, x.descricao, x.fonte === 'OpenStax' ? 'Inglês' : 'Não informado'));
+    return {
+      ...x,
+      idioma,
+      origem: 'curado',
+      provedor: x.fonte || 'Acervo curado',
+      url: linkSeguro(x.url),
+      peso: 0
+    };
+  });
 }
 
 function mapearOpenTextbook(d) {
@@ -109,7 +157,8 @@ function mapearOpenTextbook(d) {
     if (!url) return null;
     const descricao = String(x?.description || x?.abstract || x?.short_description || 'Livro-texto aberto disponível na Open Textbook Library.')
       .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 360);
-    return { id:`otl:${id}`, titulo, descricao, tipo:'Livro-texto completo · OER', nivel:'Superior', topicos:[], origem:'opentextbook', provedor:'Open Textbook Library', url, peso:10 };
+    const idioma = normalizarIdioma(x?.language || x?.languages || x?.language_code || x?.inLanguage, inferirIdiomaTexto(titulo, descricao));
+    return { id:`otl:${id}`, titulo, descricao, tipo:'Livro-texto completo · OER', nivel:'Superior', idioma, topicos:[], origem:'opentextbook', provedor:'Open Textbook Library', url, peso:10 };
   }).filter(Boolean);
 }
 
@@ -129,7 +178,7 @@ function mapearOpenStax(d, q) {
     saida.push({
       id:`openstax:${x?.id || slug || titulo}`, titulo,
       descricao:String(x?.description || 'Livro-texto completo, gratuito e revisado por educadores.').replace(/<[^>]+>/g,' ').slice(0,340),
-      tipo:'Livro completo · OpenStax', nivel:'Do médio ao superior', topicos:[],
+      tipo:'Livro completo · OpenStax', nivel:'Do médio ao superior', idioma:'Inglês', topicos:[],
       origem:'openstax', provedor:'OpenStax', url, peso:8
     });
   }
@@ -147,7 +196,8 @@ function mapearPressbooks(d) {
     if (!url) continue;
     const criador = A(x?.creator).map(c => typeof c === 'string' ? c : c?.name).filter(Boolean).slice(0,3).join(' · ');
     const descricao = String(x?.description || 'Livro educacional aberto publicado em ecossistema Pressbooks.').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,340);
-    saida.push({ id:`pressbooks:${h?._id || titulo}`, titulo, descricao:[criador, descricao].filter(Boolean).join(' — '), tipo:'Livro / curso aberto · Pressbooks', nivel:'Variável', topicos:[], origem:'pressbooks', provedor:'Pressbooks via OERSI', url, peso:20 });
+    const idioma = normalizarIdioma(x?.inLanguage || x?.language || x?.languages, inferirIdiomaTexto(titulo, descricao));
+    saida.push({ id:`pressbooks:${h?._id || titulo}`, titulo, descricao:[criador, descricao].filter(Boolean).join(' — '), tipo:'Livro / curso aberto · Pressbooks', nivel:'Variável', idioma, topicos:[], origem:'pressbooks', provedor:'Pressbooks via OERSI', url, peso:20 });
   }
   return saida.slice(0, 30);
 }
@@ -169,7 +219,8 @@ function mapearOpenAlex(d) {
     const titulo = String(x?.display_name || x?.title || '').trim();
     if (!pdf || !titulo) continue;
     const autores = A(x?.authorships).map(a => a?.author?.display_name).filter(Boolean).slice(0,4).join(' · ');
-    saida.push({ id:`openalex:${String(x?.id || titulo).split('/').pop()}`, titulo, descricao:[autores,x?.publication_year,x?.type].filter(Boolean).join(' · '), tipo:'PDF acadêmico aberto', nivel:'Complementar / avançado', topicos:[], origem:'openalex', provedor:'OpenAlex', url:pdf, peso:80 });
+    const idioma = normalizarIdioma(x?.language || x?.primary_language, inferirIdiomaTexto(titulo, x?.type || ''));
+    saida.push({ id:`openalex:${String(x?.id || titulo).split('/').pop()}`, titulo, descricao:[autores,x?.publication_year,x?.type].filter(Boolean).join(' · '), tipo:'PDF acadêmico aberto', nivel:'Complementar / avançado', idioma, topicos:[], origem:'openalex', provedor:'OpenAlex', url:pdf, peso:80 });
   }
   return saida.slice(0, 20);
 }
@@ -183,7 +234,11 @@ function normalizar(lista) {
     vistos.add(k);
     saida.push(x);
   }
-  return saida.sort((a,b) => (a.peso ?? 99) - (b.peso ?? 99) || (a.prioridade ?? 999) - (b.prioridade ?? 999));
+  return saida.sort((a,b) =>
+    prioridadeIdioma(a) - prioridadeIdioma(b) ||
+    (a.peso ?? 99) - (b.peso ?? 99) ||
+    (a.prioridade ?? 999) - (b.prioridade ?? 999)
+  );
 }
 
 function simbolo(x) {
@@ -200,8 +255,8 @@ function render() {
   const carga = $('#carregando-matematica');
 
   if (status) status.textContent = estado.consulta
-    ? `${estado.resultados.length} ${estado.resultados.length === 1 ? 'material encontrado' : 'materiais encontrados'} · livros completos sempre priorizados`
-    : 'Do primeiro cálculo às áreas avançadas da matemática.';
+    ? `${estado.resultados.length} ${estado.resultados.length === 1 ? 'material encontrado' : 'materiais encontrados'} · português primeiro · depois os demais idiomas`
+    : 'Do primeiro cálculo às áreas avançadas da matemática. Materiais em português aparecem primeiro.';
 
   if (fontes) {
     const defs = [['curado','Acervo curado'],['openstax','OpenStax'],['opentextbook','Open Textbook Library'],['pressbooks','Pressbooks / OERSI'],['openalex','OpenAlex']];
@@ -215,12 +270,12 @@ function render() {
   }
 
   if (!estado.consulta && !estado.buscando) {
-    area.innerHTML = '<div class="estado-vazio"><h3>Matemática do zero ao avançado.</h3><p>Escolha um assunto acima ou pesquise por aritmética, álgebra, geometria, cálculo, álgebra linear, equações diferenciais, probabilidade, estatística, análise real, topologia, teoria dos números e muito mais.</p></div>';
+    area.innerHTML = '<div class="estado-vazio"><h3>Matemática do zero ao avançado.</h3><p>Escolha um assunto acima ou pesquise por aritmética, álgebra, geometria, cálculo, álgebra linear, equações diferenciais, probabilidade, estatística, análise real, topologia, teoria dos números e muito mais. Materiais em português aparecem primeiro.</p></div>';
     return;
   }
 
   if (estado.buscando && !estado.resultados.length) {
-    area.innerHTML = '<div class="estado-vazio"><h3>Procurando material completo…</h3><p>Os livros-texto e cursos completos recebem prioridade sobre artigos e PDFs isolados.</p></div>';
+    area.innerHTML = '<div class="estado-vazio"><h3>Procurando material completo…</h3><p>Primeiro buscamos materiais em português; depois entram livros e cursos nos demais idiomas.</p></div>';
     return;
   }
 
@@ -233,6 +288,7 @@ function render() {
         <div class="meta-livro">
           <span>${escapar(x.tipo || 'Material completo')}</span>
           ${x.nivel ? `<span>${escapar(x.nivel)}</span>` : ''}
+          <span>${escapar(x.idioma || 'Idioma não informado')}</span>
           <span>${escapar(x.provedor || 'Fonte aberta')}</span>
         </div>
         ${A(x.topicos).length ? `<div class="tags-matematica">${A(x.topicos).slice(0,6).map(t => `<span>${escapar(t)}</span>`).join('')}</div>` : ''}
@@ -272,22 +328,41 @@ async function pesquisar(q) {
         return null;
       }
     };
-    const t = encodeURIComponent(termoApi(q));
-    const [os, otl, pb, oa] = await Promise.all([
-      json(`/api/acervos-gratuitos?fonte=openstax&q=${t}`),
-      json(`/api/acervos-gratuitos?fonte=opentextbook&q=${t}`),
-      json(`/api/pressbooks?q=${t}`),
-      json(`/api/acervos-gratuitos?fonte=openalex&q=${t}`)
+
+    const termoPt = encodeURIComponent(q);
+    const termoEn = encodeURIComponent(termoApi(q));
+    const mesmaConsulta = semAcento(q) === semAcento(termoApi(q));
+    const rotasPt = [
+      json(`/api/acervos-gratuitos?fonte=opentextbook&q=${termoPt}`),
+      json(`/api/pressbooks?q=${termoPt}`),
+      json(`/api/acervos-gratuitos?fonte=openalex&q=${termoPt}`)
+    ];
+    const rotasEn = mesmaConsulta ? [null, null, null] : [
+      json(`/api/acervos-gratuitos?fonte=opentextbook&q=${termoEn}`),
+      json(`/api/pressbooks?q=${termoEn}`),
+      json(`/api/acervos-gratuitos?fonte=openalex&q=${termoEn}`)
+    ];
+
+    const [os, pt, en] = await Promise.all([
+      json(`/api/acervos-gratuitos?fonte=openstax&q=${termoEn}`),
+      Promise.all(rotasPt),
+      Promise.all(rotasEn)
     ]);
     clearTimeout(timer);
     if (token !== estado.token) return;
 
-    const grupos = [mapearOpenStax(os, q), mapearOpenTextbook(otl), mapearPressbooks(pb), mapearOpenAlex(oa)];
-    estado.fontes.openstax = { quantidade:grupos[0].length, erro:!os };
-    estado.fontes.opentextbook = { quantidade:grupos[1].length, erro:!otl };
-    estado.fontes.pressbooks = { quantidade:grupos[2].length, erro:!pb };
-    estado.fontes.openalex = { quantidade:grupos[3].length, erro:!oa };
-    estado.resultados = normalizar([...base, ...grupos.flat()]);
+    const [otlPt, pbPt, oaPt] = pt;
+    const [otlEn, pbEn, oaEn] = en;
+    const grupoOpenStax = mapearOpenStax(os, q);
+    const grupoOtl = [...mapearOpenTextbook(otlPt), ...mapearOpenTextbook(otlEn)];
+    const grupoPb = [...mapearPressbooks(pbPt), ...mapearPressbooks(pbEn)];
+    const grupoOa = [...mapearOpenAlex(oaPt), ...mapearOpenAlex(oaEn)];
+
+    estado.fontes.openstax = { quantidade:grupoOpenStax.length, erro:!os };
+    estado.fontes.opentextbook = { quantidade:grupoOtl.length, erro:!otlPt && !otlEn };
+    estado.fontes.pressbooks = { quantidade:grupoPb.length, erro:!pbPt && !pbEn };
+    estado.fontes.openalex = { quantidade:grupoOa.length, erro:!oaPt && !oaEn };
+    estado.resultados = normalizar([...base, ...grupoOpenStax, ...grupoOtl, ...grupoPb, ...grupoOa]);
   } catch {
     estado.fontes.openstax = { quantidade:0, erro:true };
     estado.fontes.opentextbook = { quantidade:0, erro:true };
