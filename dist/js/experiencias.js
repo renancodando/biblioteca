@@ -7,8 +7,8 @@ const carregarEstilo=(href)=>{
  document.head.append(link);
 };
 
-carregarEstilo('/css/experiencias.css?v=20260917x17');
-carregarEstilo('/css/correcao-lateral.css?v=20260917l17');
+carregarEstilo('/css/experiencias.css?v=20260917x18');
+carregarEstilo('/css/correcao-lateral.css?v=20260917l18');
 
 async function carregarModulo(caminho,nome){
  try{
@@ -22,7 +22,7 @@ async function carregarModulo(caminho,nome){
 
 async function iniciar(){
  const mobile=matchMedia('(max-width:900px)').matches;
- await carregarModulo('./modulos-lazy-mobile.js?v=20260917lazy2','Carregamento sob demanda');
+ await carregarModulo('./modulos-lazy-mobile.js?v=20260917lazy3','Carregamento sob demanda');
  await carregarModulo('./mobile-dialog-fix.js?v=20260917mob5','Correção de navegação mobile');
  if(mobile){
   await carregarModulo('./interface-mobile-leve.js?v=20260917ml1','Interface mobile leve');
