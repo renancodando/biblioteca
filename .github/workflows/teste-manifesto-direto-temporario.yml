@@ -1,0 +1,17 @@
+name: Teste temporário Manifesto direto
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/teste-manifesto-direto-temporario.yml']
+jobs:
+  sintaxe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          node --check dist/js/modulos-lazy-mobile.js
+          node --check dist/js/manifesto-fecho.js
+          node --check dist/js/experiencias.js
