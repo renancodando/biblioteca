@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#0b100f"><meta name="description" content="Conhecimento é direito. Explore livros gratuitos, leia e guarde suas descobertas na Biblioteca Livre.">
 <title>Biblioteca Livre — Conhecimento é direito</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/css/responsivo.css?v=20260910c"><link rel="stylesheet" href="/css/enquadramento.css?v=20260910f"><link rel="preload" as="image" href="/assets/biblioteca-cenario.webp">
+<link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/css/responsivo.css?v=20260910c"><link rel="stylesheet" href="/css/enquadramento.css?v=20260910f"><link rel="stylesheet" href="/css/matematica.css?v=20260917m1"><link rel="preload" as="image" href="/assets/biblioteca-cenario.webp">
 <style>#conteudo-painel:has(.destaques-painel)>p:not(.rotulo){display:none}</style>
 </head>
 <body>
@@ -19,6 +19,7 @@
       <button class="ativo" data-acao="inicio"><span>01</span>Início</button>
       <button data-acao="explorar"><span>02</span>Explorar</button>
       <button id="abrir-idiomas"><span>↳</span>Idiomas</button>
+      <button id="abrir-matematica"><span>↳</span>Matemática</button>
       <button data-painel="destaques"><span>03</span>Destaques</button>
       <button data-acao="dominio"><span>04</span>Domínio público</button>
       <button data-painel="colecoes"><span>05</span>Coleções</button>
@@ -68,10 +69,27 @@
     <p class="nota-fontes">Esta área é separada do Explorar. Apostilas e cursos completos são priorizados; depois entram OpenAlex, Bloom Library, Open Textbook Library, Tainacan do Museu Nacional dos Povos Indígenas e as demais fontes especializadas.</p>
   </div>
 </dialog>
+<dialog id="matematica" class="busca-modal" aria-labelledby="titulo-matematica">
+  <div class="cabecalho-modal"><a href="#inicio" class="marca-pequena" data-fechar="matematica">BIBLIOTECA LIVRE · MATEMÁTICA</a><button class="fechar" data-fechar="matematica" aria-label="Fechar matemática">×</button></div>
+  <div class="conteudo-busca"><p class="rotulo">DO PRIMEIRO CÁLCULO À MATEMÁTICA AVANÇADA</p><h2 id="titulo-matematica">Matemática para <em>ir até o fim.</em></h2>
+    <form id="form-matematica" role="search"><label class="sr-only" for="campo-matematica">Pesquisar na biblioteca de matemática</label><div class="linha-busca"><input type="search" id="campo-matematica" placeholder="Aritmética, álgebra, cálculo, probabilidade, análise real, topologia…" maxlength="180" autocomplete="off"><button type="submit" class="primario">Pesquisar <span>↗</span></button></div></form>
+    <section class="trilha-matematica"><header><strong>Mapa completo de assuntos</strong><small>Do básico ao avançado · clique para pesquisar</small></header><div id="topicos-matematica" class="topicos-matematica"></div></section>
+    <div class="mapa-niveis-matematica" aria-label="Níveis de estudo"><div><b>Fundamentos</b><small>Aritmética, frações, porcentagem, proporções e pré-álgebra.</small></div><div><b>Ensino médio</b><small>Álgebra, funções, geometria, trigonometria e pré-cálculo.</small></div><div><b>Universitário</b><small>Cálculo, álgebra linear, EDO, probabilidade, estatística e discreta.</small></div><div><b>Avançado</b><small>Análise, álgebra abstrata, topologia, números, otimização e sistemas dinâmicos.</small></div></div>
+    <div class="resultado-cabecalho"><p id="status-matematica" role="status" aria-live="polite">Do primeiro cálculo às áreas avançadas da matemática.</p></div>
+    <div id="fontes-matematica-status" class="fontes-status" aria-label="Resultados por fonte de matemática" hidden></div>
+    <section id="carregando-matematica" class="carregamento-busca" hidden aria-hidden="true">
+      <div class="carregamento-visual" aria-hidden="true"><span class="orbita orbita-a"></span><span class="orbita orbita-b"></span><span class="orbita orbita-c"></span><div class="livro-pulso"><i></i><i></i><i></i><b>∑</b></div><span class="folha-carga folha-carga-a"></span><span class="folha-carga folha-carga-b"></span><span class="folha-carga folha-carga-c"></span></div>
+      <div class="carregamento-texto"><span class="rotulo">PESQUISA ESPECIALIZADA EM MATEMÁTICA</span><strong id="carregando-matematica-titulo">Abrindo livros-texto, apostilas e cursos completos…</strong><p id="carregando-matematica-fonte">Acervo curado e OpenStax primeiro; depois Open Textbook, Pressbooks e PDFs acadêmicos.</p><div class="progresso-fontes"><i id="progresso-matematica-barra"></i></div><small id="progresso-matematica-texto">Consultando 5 camadas de acervo</small></div>
+    </section>
+    <div id="resultados-matematica" class="resultados"><div class="estado-vazio"><h3>Matemática do zero ao avançado.</h3><p>Escolha um assunto acima ou pesquise pelo tema que você quer dominar.</p></div></div>
+    <p class="nota-fontes">Livros completos e cursos estruturados aparecem primeiro. A busca combina um acervo curado de textbooks com OpenStax, Open Textbook Library, Pressbooks/OERSI e OpenAlex como camada acadêmica complementar.</p>
+  </div>
+</dialog>
 <dialog id="painel" class="painel" aria-label="Informações da biblioteca"><button class="fechar" data-fechar="painel" aria-label="Fechar painel">×</button><div id="conteudo-painel"></div></dialog>
 <dialog id="leitor" class="leitor" aria-labelledby="titulo-leitor"><header><div><span class="rotulo">LEITURA LIVRE</span><h2 id="titulo-leitor">Leitura</h2></div><div class="acoes-leitor"><button id="fonte-menor" aria-label="Diminuir fonte">A−</button><button id="fonte-maior" aria-label="Aumentar fonte">A+</button><button id="tema-leitor" aria-label="Alternar tema do leitor">◐</button><button id="imprimir" aria-label="Imprimir ou salvar em PDF">PDF</button><button class="fechar" data-fechar="leitor" aria-label="Fechar leitor">×</button></div></header><div id="leitor-rolagem" class="leitor-rolagem"><div id="corpo-leitor" class="corpo-leitor"></div></div><footer><span id="pagina-leitura">Seu progresso fica neste dispositivo</span><progress id="progresso-leitura" max="100" value="0" aria-label="Progresso da leitura"></progress><span id="porcentagem-leitura">0%</span></footer></dialog>
 <div id="avisos" class="avisos" role="status" aria-live="polite"></div>
 <noscript><p class="sem-js">Ative o JavaScript para pesquisar e ler. Você também pode visitar o <a href="https://www.gutenberg.org/browse/languages/pt">acervo gratuito em português do Project Gutenberg</a>.</p></noscript>
 <script type="module" src="/js/app.js?v=20260916oa"></script>
 <script type="module" src="/js/idiomas.js?v=20260917apostilas2"></script>
+<script type="module" src="/js/matematica.js?v=20260917m1"></script>
 </body></html>
