@@ -1,0 +1,17 @@
+name: Teste temporário manifesto integral
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/teste-manifesto-temporario.yml']
+jobs:
+  sintaxe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          node --check dist/js/manifesto-final-completo.js
+          node --check dist/js/finalizacao-biblioteca.js
+          node --check dist/js/experiencias.js
