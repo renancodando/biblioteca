@@ -7,9 +7,9 @@ const carregarEstilo=(href)=>{
  document.head.append(link);
 };
 
-carregarEstilo('/css/experiencias.css?v=20260917x9');
-carregarEstilo('/css/observatorio-politico.css?v=20260917p9');
-carregarEstilo('/css/correcao-lateral.css?v=20260917l9');
+carregarEstilo('/css/experiencias.css?v=20260917x10');
+carregarEstilo('/css/observatorio-politico.css?v=20260917p10');
+carregarEstilo('/css/correcao-lateral.css?v=20260917l10');
 
 async function carregarModulo(caminho,nome){
  try{
@@ -41,13 +41,13 @@ marcarConstelacaoEmTestes();
 new MutationObserver(marcarConstelacaoEmTestes).observe(document.body,{childList:true,subtree:true});
 
 Promise.allSettled([
- carregarModulo('./constelacao.js?v=20260917c9','Constelação de Livros'),
- carregarModulo('./lingua-viva.js?v=20260917v9','Ouça uma Língua Viva'),
- carregarModulo('./observatorio-politico.js?v=20260917p9','Observatório Político'),
- carregarModulo('./eleicoes-2026.js?v=20260917e6','Central Eleições 2026'),
- carregarModulo('./analise-juridica-2026-regras.js?v=20260917j5','Regras jurídicas documentais 2026'),
- carregarModulo('./dossie-eleitoral-2026.js?v=20260917d3','Dossiê eleitoral verificável 2026'),
- carregarModulo('./dossie-eleitoral-integracao.js?v=20260917di3','Integração do dossiê eleitoral'),
- carregarModulo('./presidencia.js?v=20260917pr6','Dossiê documental da Presidência'),
- carregarModulo('./presidencia-judicial-integracao.js?v=20260917pj1','Histórico judicial público da Presidência')
-]);
+ carregarModulo('./constelacao.js?v=20260917c10','Constelação de Livros'),
+ carregarModulo('./lingua-viva.js?v=20260917v10','Ouça uma Língua Viva'),
+ carregarModulo('./observatorio-politico.js?v=20260917p10','Observatório Político'),
+ carregarModulo('./eleicoes-2026.js?v=20260917e7','Central Eleições 2026'),
+ carregarModulo('./analise-juridica-2026-regras.js?v=20260917j6','Regras jurídicas documentais 2026'),
+ carregarModulo('./dossie-eleitoral-2026.js?v=20260917d4','Dossiê eleitoral verificável 2026'),
+ carregarModulo('./dossie-eleitoral-integracao.js?v=20260917di4','Integração do dossiê eleitoral'),
+ carregarModulo('./presidencia.js?v=20260917pr7','Dossiê documental da Presidência'),
+ carregarModulo('./presidencia-judicial-integracao.js?v=20260917pj2','Histórico judicial público da Presidência')
+]).then(()=>carregarModulo('./finalizacao-biblioteca.js?v=20260917f1','Revisão final da Biblioteca Livre'));
