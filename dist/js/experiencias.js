@@ -44,6 +44,6 @@ Promise.allSettled([
  carregarModulo('./constelacao.js?v=20260917c4','Constelação de Livros'),
  carregarModulo('./lingua-viva.js?v=20260917v4','Ouça uma Língua Viva'),
  carregarModulo('./observatorio-politico.js?v=20260917p4','Observatório Político'),
- carregarModulo('./eleicoes-2026.js?v=20260917e1','Central Eleições 2026'),
+ carregarModulo('./eleicoes-2026.js?v=20260917e2','Central Eleições 2026'),
  carregarModulo('./presidencia.js?v=20260917pr2','Dossiê documental da Presidência')
 ]);
