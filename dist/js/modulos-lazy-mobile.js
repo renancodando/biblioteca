@@ -128,14 +128,30 @@ document.addEventListener('click',e=>{
 
 function carregarDesktopOcioso(){
  if(mobile())return;
- const tarefa=async()=>{
+
+ const prepararPolitica=async()=>{
+  estilo('/css/observatorio-politico.css?v=20260917p17');
+  await importar('observatorio','./observatorio-politico.js?v=20260917p17');
   await Promise.allSettled([
-   importar('constelacao','./constelacao.js?v=20260917c16'),
-   importar('manifesto-completo','./manifesto-final-completo.js?v=20260917mf10'),
-   importar('manifesto-fecho','./manifesto-fecho.js?v=20260917mf11')
+   importar('eleicoes','./eleicoes-2026.js?v=20260917e14'),
+   importar('presidencia','./presidencia.js?v=20260917pr14')
   ]);
  };
- if('requestIdleCallback'in window)requestIdleCallback(tarefa,{timeout:4500});else setTimeout(tarefa,2500);
+
+ const completar=async()=>{
+  await Promise.allSettled([
+   importar('constelacao','./constelacao.js?v=20260917c17'),
+   importar('manifesto-completo','./manifesto-final-completo.js?v=20260917mf10'),
+   importar('manifesto-fecho','./manifesto-fecho.js?v=20260917mf11'),
+   importar('juridico','./analise-juridica-2026-regras.js?v=20260917j13'),
+   importar('dossie','./dossie-eleitoral-2026.js?v=20260917d11'),
+   importar('dossie-integracao','./dossie-eleitoral-integracao.js?v=20260917di11'),
+   importar('presidencia-judicial','./presidencia-judicial-integracao.js?v=20260917pj9')
+  ]);
+ };
+
+ requestAnimationFrame(()=>prepararPolitica().catch(e=>console.error('Falha ao preparar módulos políticos no desktop:',e)));
+ if('requestIdleCallback'in window)requestIdleCallback(completar,{timeout:3000});else setTimeout(completar,900);
 }
 
 carregarDesktopOcioso();
