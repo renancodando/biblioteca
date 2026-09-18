@@ -3,7 +3,7 @@ name: Atualizar planos presidenciais 2026
 on:
   workflow_dispatch:
   schedule:
-    - cron: '20 0,6,12,18 * * *'
+    - cron: '20 */4 * * *'
   push:
     branches:
       - main
