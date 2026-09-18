@@ -174,23 +174,24 @@ def capa_pdf(candidatos: list[str], gerado_em: str) -> bytes:
     return buf.getvalue()
 
 
-def preservar_versao_anterior(base: str, antigo: dict, novo_hash: str) -> None:
-    hash_antigo = antigo.get("sha256")
-    if not hash_antigo or hash_antigo == novo_hash:
-        return
-    pasta_dados = OUT_TEXT / "historico" / base
-    pasta_pdfs = OUT_PDFS / "historico" / base
-    pasta_dados.mkdir(parents=True, exist_ok=True)
-    pasta_pdfs.mkdir(parents=True, exist_ok=True)
-    json_atual = OUT_TEXT / f"{base}.json"
-    txt_atual = OUT_TEXT / f"{base}.txt"
-    pdf_atual = OUT_PDFS / f"{base}.pdf"
-    if json_atual.exists():
-        shutil.copy2(json_atual, pasta_dados / f"{hash_antigo}.json")
-    if txt_atual.exists():
-        shutil.copy2(txt_atual, pasta_dados / f"{hash_antigo}.txt")
-    if pdf_atual.exists():
-        shutil.copy2(pdf_atual, pasta_pdfs / f"{hash_antigo}.pdf")
+def assinatura_indice() -> list[tuple[str, str, str]]:
+    indice = carregar_json(OUT_INDEX, {})
+    assinatura = []
+    for chave in ("documentos", "registrosAdicionais"):
+        for item in indice.get(chave, []):
+            assinatura.append((
+                item.get("candidato", ""),
+                item.get("classificacao", ""),
+                item.get("sha256", ""),
+            ))
+    return sorted(assinatura)
+
+
+def assinatura_itens(itens: list[dict]) -> list[tuple[str, str, str]]:
+    return sorted(
+        (item["candidato"], item["classificacao"], item["sha256"])
+        for item in itens
+    )
 
 
 def main() -> None:
@@ -250,6 +251,16 @@ def main() -> None:
     ordem = {normalizar(nome): i for i, nome in enumerate(CANDIDATOS)}
     itens.sort(key=lambda x: (0 if x["classificacao"] == "candidatura-validada" else 1, ordem.get(normalizar(x["candidato"]), 999), normalizar(x["candidato"])))
 
+    falhas = [item["candidato"] for item in itens if item.get("erro") or not item.get("sha256")]
+    if falhas:
+        shutil.rmtree(TMP, ignore_errors=True)
+        raise RuntimeError("Falha ao processar documentos: " + ", ".join(falhas))
+
+    if assinatura_indice() == assinatura_itens(itens):
+        shutil.rmtree(TMP, ignore_errors=True)
+        print("Nenhuma alteracao real nos documentos oficiais do TSE.")
+        return
+
     registros = []
     extras = []
     for item in itens:
@@ -258,7 +269,6 @@ def main() -> None:
         txt_atual = OUT_TEXT / f"{base}.txt"
         pdf_atual = OUT_PDFS / f"{base}.pdf"
         antigo = carregar_json(json_atual, {})
-        preservar_versao_anterior(base, antigo, item["sha256"])
 
         alteracoes = None
         if antigo.get("sha256") and antigo.get("sha256") != item["sha256"]:
