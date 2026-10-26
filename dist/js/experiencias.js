@@ -23,6 +23,7 @@ async function carregarModulo(caminho,nome){
 async function iniciar(){
  const mobile=matchMedia('(max-width:900px)').matches;
  await carregarModulo('./modulos-lazy-mobile.js?v=20260917lazy4','Carregamento sob demanda');
+ await carregarModulo('./resultados-eleicao-2026.js?v=20261026r1','Resultados oficiais das eleições 2026');
  await carregarModulo('./mobile-dialog-fix.js?v=20260917mob5','Correção de navegação mobile');
  if(mobile){
   await carregarModulo('./interface-mobile-leve.js?v=20260917ml1','Interface mobile leve');
